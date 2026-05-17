@@ -1,12 +1,18 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { Settings, LogOut } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
-const MOCK_USER = { name: 'Paques', plan: 'Gratuito' }
+interface UserInfo {
+  name: string
+  email: string
+  plan: string
+}
 
 function UserAvatar({ name, size = 40 }: { name: string; size?: number }) {
-  const initial = name.charAt(0).toUpperCase()
+  const initial = (name || '?').charAt(0).toUpperCase()
   return (
     <div
       style={{
@@ -33,8 +39,31 @@ function UserAvatar({ name, size = 40 }: { name: string; size?: number }) {
 
 export function SidebarFooter() {
   const [open, setOpen] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(false)
+  const [user, setUser] = useState<UserInfo>({ name: '…', email: '', plan: 'Gratuito' })
   const ref = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
+  // Load real user data
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) return
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('name, role')
+        .eq('id', data.user.id)
+        .single()
+
+      setUser({
+        name: profile?.name || data.user.email?.split('@')[0] || 'Usuário',
+        email: data.user.email || '',
+        plan: profile?.role === 'admin' ? 'Admin' : profile?.role === 'staff' ? 'Staff' : 'Gratuito',
+      })
+    })
+  }, [])
+
+  // Close on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -45,11 +74,33 @@ export function SidebarFooter() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [open])
 
+  const handleLogout = useCallback(async () => {
+    setLoggingOut(true)
+    setOpen(false)
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/login')
+  }, [router])
+
+  const menuItemStyle: React.CSSProperties = {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    padding: '12px 16px',
+    background: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+    color: 'rgba(229,220,199,0.85)',
+    fontSize: '14px',
+    fontFamily: 'var(--font-ui)',
+    transition: 'background 150ms ease, color 150ms ease',
+    textDecoration: 'none',
+  }
+
   return (
-    <div
-      ref={ref}
-      style={{ position: 'relative', flexShrink: 0 }}
-    >
+    <div ref={ref} style={{ position: 'relative', flexShrink: 0 }}>
+
       {/* Popover menu */}
       <div
         style={{
@@ -69,108 +120,66 @@ export function SidebarFooter() {
           transition: 'transform 200ms cubic-bezier(0.16,1,0.3,1), opacity 180ms ease',
         }}
       >
-        {/* User info top */}
-        <div
-          style={{
-            padding: '14px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            borderBottom: '1px solid rgba(218,165,32,0.15)',
-          }}
-        >
-          <UserAvatar name={MOCK_USER.name} size={36} />
-          <span
-            style={{
-              color: '#E5DCC7',
-              fontSize: '14px',
-              fontFamily: 'var(--font-ui)',
-              fontWeight: 500,
-            }}
-          >
-            {MOCK_USER.name}
-          </span>
+        {/* User info */}
+        <div style={{
+          padding: '14px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          borderBottom: '1px solid rgba(218,165,32,0.15)',
+        }}>
+          <UserAvatar name={user.name} size={36} />
+          <div style={{ minWidth: 0 }}>
+            <p style={{ color: '#E5DCC7', fontSize: '14px', fontFamily: 'var(--font-ui)', fontWeight: 500, lineHeight: 1.3 }}>
+              {user.name}
+            </p>
+            {user.email && (
+              <p style={{ color: 'rgba(229,220,199,0.4)', fontSize: '11px', fontFamily: 'var(--font-ui)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {user.email}
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* Menu items */}
+        {/* Configurações */}
         <Link
           href="/settings"
           onClick={() => setOpen(false)}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '12px 16px',
-            background: 'transparent',
-            color: 'rgba(229,220,199,0.85)',
-            fontSize: '14px',
-            fontFamily: 'var(--font-ui)',
-            borderBottom: '1px solid rgba(218,165,32,0.10)',
-            transition: 'background 150ms ease, color 150ms ease',
-            textDecoration: 'none',
-          }}
-          onMouseEnter={e => {
-            const el = e.currentTarget as HTMLElement
-            el.style.background = 'rgba(218,165,32,0.08)'
-            el.style.color = '#E5DCC7'
-          }}
-          onMouseLeave={e => {
-            const el = e.currentTarget as HTMLElement
-            el.style.background = 'transparent'
-            el.style.color = 'rgba(229,220,199,0.85)'
-          }}
+          style={{ ...menuItemStyle, borderBottom: '1px solid rgba(218,165,32,0.10)' }}
+          onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(218,165,32,0.08)'; el.style.color = '#E5DCC7' }}
+          onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'transparent'; el.style.color = 'rgba(229,220,199,0.85)' }}
         >
           <Settings size={16} style={{ flexShrink: 0, color: 'rgba(218,165,32,0.7)' }} />
           Configurações
         </Link>
 
+        {/* Desconectar */}
         <button
-          onClick={() => setOpen(false)}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '12px 16px',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'rgba(229,220,199,0.85)',
-            fontSize: '14px',
-            fontFamily: 'var(--font-ui)',
-            transition: 'background 150ms ease, color 150ms ease',
-          }}
-          onMouseEnter={e => {
-            (e.currentTarget as HTMLButtonElement).style.background = 'rgba(218,165,32,0.08)'
-            ;(e.currentTarget as HTMLButtonElement).style.color = '#E5DCC7'
-          }}
-          onMouseLeave={e => {
-            (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
-            ;(e.currentTarget as HTMLButtonElement).style.color = 'rgba(229,220,199,0.85)'
-          }}
+          onClick={handleLogout}
+          disabled={loggingOut}
+          style={{ ...menuItemStyle, opacity: loggingOut ? 0.6 : 1 }}
+          onMouseEnter={e => { if (!loggingOut) { const el = e.currentTarget as HTMLButtonElement; el.style.background = 'rgba(139,38,53,0.15)'; el.style.color = '#f87171' } }}
+          onMouseLeave={e => { const el = e.currentTarget as HTMLButtonElement; el.style.background = 'transparent'; el.style.color = 'rgba(229,220,199,0.85)' }}
         >
-          <LogOut size={16} style={{ flexShrink: 0, color: 'rgba(218,165,32,0.7)' }} />
-          Desconectar
+          <LogOut size={16} style={{ flexShrink: 0, color: loggingOut ? 'rgba(218,165,32,0.4)' : 'rgba(218,165,32,0.7)' }} />
+          {loggingOut ? 'Desconectando…' : 'Desconectar'}
         </button>
 
-        {/* Plan info bottom */}
-        <div
-          style={{
-            padding: '12px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            borderTop: '1px solid rgba(218,165,32,0.15)',
-          }}
-        >
-          <UserAvatar name={MOCK_USER.name} size={32} />
+        {/* Plan badge */}
+        <div style={{
+          padding: '10px 16px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          borderTop: '1px solid rgba(218,165,32,0.15)',
+        }}>
+          <UserAvatar name={user.name} size={28} />
           <div>
-            <p style={{ color: '#E5DCC7', fontSize: '13px', fontFamily: 'var(--font-ui)', fontWeight: 500, lineHeight: 1.3 }}>
-              {MOCK_USER.name}
+            <p style={{ color: '#E5DCC7', fontSize: '12px', fontFamily: 'var(--font-ui)', fontWeight: 500, lineHeight: 1.3 }}>
+              {user.name}
             </p>
-            <p style={{ color: 'rgba(229,220,199,0.45)', fontSize: '12px', fontFamily: 'var(--font-ui)' }}>
-              {MOCK_USER.plan}
+            <p style={{ color: 'rgba(229,220,199,0.4)', fontSize: '11px', fontFamily: 'var(--font-ui)' }}>
+              {user.plan}
             </p>
           </div>
         </div>
@@ -192,14 +201,10 @@ export function SidebarFooter() {
           transition: 'background 150ms ease',
           textAlign: 'left',
         }}
-        onMouseEnter={e => {
-          if (!open) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(218,165,32,0.06)'
-        }}
-        onMouseLeave={e => {
-          if (!open) (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
-        }}
+        onMouseEnter={e => { if (!open) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(218,165,32,0.06)' }}
+        onMouseLeave={e => { if (!open) (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}
       >
-        <UserAvatar name={MOCK_USER.name} size={40} />
+        <UserAvatar name={user.name} size={40} />
         <div style={{ minWidth: 0 }}>
           <p style={{
             color: '#E5DCC7',
@@ -211,14 +216,10 @@ export function SidebarFooter() {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
           }}>
-            {MOCK_USER.name}
+            {user.name}
           </p>
-          <p style={{
-            color: 'rgba(229,220,199,0.45)',
-            fontSize: '12px',
-            fontFamily: 'var(--font-ui)',
-          }}>
-            {MOCK_USER.plan}
+          <p style={{ color: 'rgba(229,220,199,0.45)', fontSize: '12px', fontFamily: 'var(--font-ui)' }}>
+            {user.plan}
           </p>
         </div>
       </button>

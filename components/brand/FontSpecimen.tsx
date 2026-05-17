@@ -53,8 +53,7 @@ export function FontSpecimen({
           letterSpacing: '0.05em',
           marginBottom: '16px',
           lineHeight: 1.6,
-          margin: 0,
-          marginBottom: '16px',
+          margin: '0 0 16px 0',
         } as React.CSSProperties}
       >
         Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz

@@ -16,7 +16,7 @@ export default async function SettingsPage() {
 
   return (
     <div className="scroll-container" style={{ overflowY: 'auto', height: '100%' }}>
-      <div style={{ padding: '48px 64px', maxWidth: '900px' }}>
+      <div className="et-settings-padding" style={{ maxWidth: '900px' }}>
         <SettingsPanel
           initialName={profile?.name ?? ''}
           email={user.email ?? ''}

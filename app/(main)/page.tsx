@@ -67,17 +67,12 @@ const CARDS = [
 export default function HomePage() {
   return (
     <div className="scroll-container h-full" style={{ overflowY: 'auto' }}>
-      <div style={{
-        maxWidth: '900px',
-        margin: '0 auto',
-        padding: '56px 48px 80px',
-      }}>
+      <div className="et-page-padding" style={{ maxWidth: '900px', margin: '0 auto' }}>
 
         {/* Título */}
         <div style={{ marginBottom: '40px' }}>
-          <h1 style={{
+          <h1 className="et-page-title" style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: '52px',
             fontWeight: 700,
             color: '#1B3A5F',
             lineHeight: 1.05,
@@ -126,11 +121,7 @@ export default function HomePage() {
             Diretrizes
           </p>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '12px',
-          }}>
+          <div className="et-cards-grid">
             {CARDS.map(({ label, desc, slug, color, bg, border, Icon }) => (
               <Link
                 key={slug}

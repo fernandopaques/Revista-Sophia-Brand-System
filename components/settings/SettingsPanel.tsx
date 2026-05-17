@@ -276,8 +276,7 @@ export function SettingsPanel({ initialName, email }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>('conta')
 
   return (
-    <div style={{
-      display: 'flex',
+    <div className="et-settings-layout" style={{
       background: '#fff',
       border: '1px solid rgba(27,58,95,0.10)',
       borderRadius: '16px',
@@ -285,15 +284,15 @@ export function SettingsPanel({ initialName, email }: Props) {
       minHeight: '500px',
       boxShadow: '0 2px 16px rgba(27,58,95,0.06)',
     }}>
-      {/* Left sidebar */}
-      <div style={{
+      {/* Left sidebar / top nav on mobile */}
+      <div className="et-settings-nav" style={{
         width: '200px',
         flexShrink: 0,
         borderRight: '1px solid rgba(27,58,95,0.08)',
         padding: '24px 12px',
         background: '#F8F4E6',
       }}>
-        <p style={{
+        <p className="et-settings-nav-label" style={{
           fontFamily: 'var(--font-ui)',
           fontSize: '10px',
           fontWeight: 700,

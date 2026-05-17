@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import {
   Bell, LayoutGrid, Compass, BookOpen, Eye,
-  Target, MessageSquare, Palette, BookMarked, Layers,
+  Target, MessageSquare, Palette, BookMarked, Layers, Menu,
 } from 'lucide-react'
 
 const APP_ITEMS = [
@@ -18,7 +18,7 @@ const APP_ITEMS = [
   { icon: LayoutGrid,   label: 'Brand System',     slug: '/',                         color: '#1B3A5F', bg: 'rgba(27,58,95,0.12)',   active: true  },
 ]
 
-export function TopBar() {
+export function TopBar({ onMenuOpen }: { onMenuOpen?: () => void }) {
   const [appsOpen, setAppsOpen] = useState(false)
   const [bellOpen, setBellOpen] = useState(false)
   const appsRef = useRef<HTMLDivElement>(null)
@@ -36,11 +36,11 @@ export function TopBar() {
   return (
     <div
       style={{
-        height: '52px',
+        height: '56px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 28px',
+        justifyContent: 'space-between',
+        padding: '0 20px',
         gap: '8px',
         borderBottom: '1px solid rgba(218,165,32,0.18)',
         background: '#E5DCC7',
@@ -49,6 +49,36 @@ export function TopBar() {
         zIndex: 40,
       }}
     >
+      {/* Hamburger — mobile only */}
+      <button
+        className="mobile-only"
+        onClick={onMenuOpen}
+        aria-label="Abrir menu"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '44px',
+          height: '44px',
+          borderRadius: '10px',
+          background: '#1B3A5F',
+          border: 'none',
+          cursor: 'pointer',
+          flexShrink: 0,
+          transition: 'background 150ms ease',
+        }}
+        onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#0f2540' }}
+        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#1B3A5F' }}
+      >
+        <Menu size={22} color="#DAA520" />
+      </button>
+
+      {/* Spacer — desktop (pushes icons to right) */}
+      <div className="desktop-only" style={{ flex: 1 }} />
+
+      {/* Right icons */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
       {/* Bell */}
       <div ref={bellRef} style={{ position: 'relative' }}>
         <button
@@ -174,6 +204,8 @@ export function TopBar() {
           </div>
         </div>
       </div>
+
+      </div>{/* end right icons */}
     </div>
   )
 }

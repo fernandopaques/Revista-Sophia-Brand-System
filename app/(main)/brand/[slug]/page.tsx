@@ -29,7 +29,7 @@ export default async function BrandModulePage({ params }: Props) {
   const { prev, next } = getPrevNext(slug)
 
   return (
-    <article className="scroll-container h-full" style={{ padding: '48px 64px 0', maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
+    <article className="scroll-container h-full et-brand-padding" style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
       <Content />
       <PageNav prev={prev} next={next} />
     </article>

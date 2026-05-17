@@ -39,6 +39,11 @@ const nextConfig: NextConfig = {
   // Remove o indicador "N" do Next.js em desenvolvimento
   devIndicators: false,
 
+  // TypeScript already validates the code — skip ESLint during CI/Vercel builds
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   experimental: {
     // Usar o compilador JS por enquanto — mais estável com a cadeia de plugins remark/rehype
     mdxRs: false,

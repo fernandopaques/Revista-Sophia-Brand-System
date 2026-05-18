@@ -7,15 +7,13 @@ type Role = 'admin' | 'staff' | 'gratuito' | null
 
 export function SectionEncerramento({
   isAuthenticated,
-  role,
 }: {
   isAuthenticated: boolean
-  role: Role
+  role?: Role
 }) {
   const ctaPrimary = isAuthenticated
     ? { href: '/dashboard', label: 'Ir para Dashboard' }
     : { href: '/login', label: 'Entrar como membro' }
-  const showAtivos = role === 'admin'
 
   return (
     <section
@@ -109,41 +107,6 @@ export function SectionEncerramento({
             <ArrowRight size={17} />
           </Link>
 
-          {showAtivos && (
-            <Link
-              href="/assets"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '12px',
-                height: '52px',
-                padding: '0 24px',
-                background: 'transparent',
-                color: '#E5DCC7',
-                fontFamily: 'var(--font-ui)',
-                fontSize: '14px',
-                fontWeight: 500,
-                border: '1px solid rgba(218,165,32,0.40)',
-                borderRadius: '10px',
-                textDecoration: 'none',
-                letterSpacing: '0.02em',
-                transition: 'background 180ms ease, border-color 180ms ease',
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLAnchorElement
-                el.style.background = 'rgba(218,165,32,0.10)'
-                el.style.borderColor = 'rgba(218,165,32,0.70)'
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLAnchorElement
-                el.style.background = 'transparent'
-                el.style.borderColor = 'rgba(218,165,32,0.40)'
-              }}
-            >
-              Gestão de Ativos
-              <ArrowUpRight size={16} />
-            </Link>
-          )}
         </div>
       </div>
 

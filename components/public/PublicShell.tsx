@@ -2,18 +2,69 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { Menu, X, ArrowUpRight, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 
 type Role = 'admin' | 'staff' | 'gratuito' | null
+type Theme = 'dark' | 'light'
 
 const SECTIONS = [
-  { id: 'capa',             num: '00', label: 'Capa' },
-  { id: 'por-que-sophia',   num: '01', label: 'Por que Sophia' },
-  { id: 'manifesto',        num: '02', label: 'Manifesto' },
-  { id: 'o-que-nos-move',   num: '03', label: 'O que nos move' },
-  { id: 'o-nome',           num: '04', label: 'O Nome' },
-  { id: 'encerramento',     num: '05', label: 'Encerramento' },
+  { id: 'capa',             num: '00', label: 'Capa',             theme: 'dark'  },
+  { id: 'por-que-sophia',   num: '01', label: 'Por que Sophia',   theme: 'light' },
+  { id: 'manifesto',        num: '02', label: 'Manifesto',        theme: 'dark'  },
+  { id: 'o-que-nos-move',   num: '03', label: 'O que nos move',   theme: 'light' },
+  { id: 'o-nome',           num: '04', label: 'O Nome',           theme: 'dark'  },
+  { id: 'encerramento',     num: '05', label: 'Encerramento',     theme: 'dark'  },
 ] as const
+
+type Palette = {
+  titleAccent:    string
+  subtitleMuted:  string
+  numActive:      string
+  numInactive:    string
+  labelActive:    string
+  labelInactive:  string
+  labelHover:     string
+  divider:        string
+  ctaBg:          string
+  ctaBgHover:     string
+  ctaBorder:      string
+  ctaBorderHover: string
+  ctaText:        string
+}
+
+// Paleta de cores adaptativa por tema (fundo escuro x fundo claro)
+const PALETTE: Record<Theme, Palette> = {
+  dark: {
+    titleAccent:        '#DAA520',
+    subtitleMuted:      'rgba(229,220,199,0.45)',
+    numActive:          '#DAA520',
+    numInactive:        'rgba(229,220,199,0.35)',
+    labelActive:        '#DAA520',
+    labelInactive:      'rgba(229,220,199,0.50)',
+    labelHover:         'rgba(229,220,199,0.90)',
+    divider:            'rgba(218,165,32,0.20)',
+    ctaBg:              'rgba(218,165,32,0.10)',
+    ctaBgHover:         'rgba(218,165,32,0.18)',
+    ctaBorder:          'rgba(218,165,32,0.30)',
+    ctaBorderHover:     'rgba(218,165,32,0.55)',
+    ctaText:            '#DAA520',
+  },
+  light: {
+    titleAccent:        '#704214',
+    subtitleMuted:      'rgba(27,58,95,0.50)',
+    numActive:          '#DAA520',
+    numInactive:        'rgba(112,66,20,0.45)',
+    labelActive:        '#1B3A5F',
+    labelInactive:      'rgba(27,58,95,0.45)',
+    labelHover:         'rgba(27,58,95,0.85)',
+    divider:            'rgba(112,66,20,0.22)',
+    ctaBg:              'rgba(27,58,95,0.06)',
+    ctaBgHover:         'rgba(27,58,95,0.12)',
+    ctaBorder:          'rgba(27,58,95,0.30)',
+    ctaBorderHover:     'rgba(27,58,95,0.55)',
+    ctaText:            '#1B3A5F',
+  },
+}
 
 interface Props {
   children: React.ReactNode
@@ -21,7 +72,7 @@ interface Props {
   role: Role
 }
 
-export function PublicShell({ children, isAuthenticated, role }: Props) {
+export function PublicShell({ children, isAuthenticated }: Props) {
   const [activeId, setActiveId] = useState<string>('capa')
   const [menuOpen, setMenuOpen] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
@@ -29,8 +80,11 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
   const ctaPrimary = isAuthenticated
     ? { href: '/dashboard', label: 'Ir para Dashboard' }
     : { href: '/login', label: 'Entrar' }
-  const ctaSecondary =
-    role === 'admin' ? { href: '/assets', label: 'Gestão de Ativos' } : null
+
+  // Tema corrente derivado da seção ativa
+  const activeSection = SECTIONS.find(s => s.id === activeId) ?? SECTIONS[0]
+  const theme: Theme = activeSection.theme
+  const palette = PALETTE[theme]
 
   // Active section via IntersectionObserver — root é o scroll container
   useEffect(() => {
@@ -39,7 +93,6 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
 
     observerRef.current = new IntersectionObserver(
       entries => {
-        // Pega a entry mais "central" — maior intersectionRatio entre as visíveis
         const visible = entries
           .filter(e => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
@@ -49,7 +102,6 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
       },
       {
         root: scrollRoot,
-        // Considera "ativa" quando a seção cruza a faixa central da viewport
         rootMargin: '-40% 0px -40% 0px',
         threshold: [0, 0.25, 0.5, 0.75, 1],
       }
@@ -97,28 +149,26 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
           left: 0,
           bottom: 0,
           width: '240px',
-          padding: '72px 32px 32px',
+          padding: '56px 32px 40px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '32px',
           zIndex: 30,
           pointerEvents: 'auto',
         }}
       >
-        <SidebarHeader />
+        <SidebarHeader palette={palette} />
 
-        <NavList
-          sections={SECTIONS}
-          activeId={activeId}
-          onItemClick={scrollToSection}
-        />
+        {/* Nav centralizada verticalmente entre header e CTAs */}
+        <div style={{ margin: 'auto 0' }}>
+          <NavList
+            sections={SECTIONS}
+            activeId={activeId}
+            onItemClick={scrollToSection}
+            palette={palette}
+          />
+        </div>
 
-        <div style={{ flex: 1 }} />
-
-        <SidebarCTAs
-          primary={ctaPrimary}
-          secondary={ctaSecondary}
-        />
+        <SidebarCTAs primary={ctaPrimary} palette={palette} />
       </aside>
 
       {/* ════════ HAMBURGER MOBILE ════════ */}
@@ -136,8 +186,8 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'rgba(218,165,32,0.10)',
-            border: '1px solid rgba(218,165,32,0.30)',
+            background: 'rgba(218,165,32,0.12)',
+            border: '1px solid rgba(218,165,32,0.35)',
             borderRadius: '10px',
             cursor: 'pointer',
             color: '#DAA520',
@@ -148,11 +198,11 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLButtonElement).style.background =
-              'rgba(218,165,32,0.20)'
+              'rgba(218,165,32,0.22)'
           }}
           onMouseLeave={e => {
             (e.currentTarget as HTMLButtonElement).style.background =
-              'rgba(218,165,32,0.10)'
+              'rgba(218,165,32,0.12)'
           }}
         >
           <Menu size={22} strokeWidth={1.8} />
@@ -206,7 +256,6 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
           </button>
         </div>
 
-        {/* Items centralizados verticalmente */}
         <div
           style={{
             flex: 1,
@@ -259,7 +308,7 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
             </button>
           ))}
 
-          {/* CTAs mobile */}
+          {/* CTA mobile */}
           <div style={{
             marginTop: '32px',
             paddingTop: '24px',
@@ -296,71 +345,40 @@ export function PublicShell({ children, isAuthenticated, role }: Props) {
               {ctaPrimary.label}
               <ArrowRight size={16} />
             </Link>
-
-            {ctaSecondary && (
-              <Link
-                href={ctaSecondary.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '12px',
-                  height: '44px',
-                  padding: '0 18px',
-                  background: 'transparent',
-                  color: '#E5DCC7',
-                  fontFamily: 'var(--font-ui)',
-                  fontSize: '13px',
-                  fontWeight: 500,
-                  border: '1px solid rgba(218,165,32,0.30)',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  letterSpacing: '0.02em',
-                }}
-              >
-                {ctaSecondary.label}
-                <ArrowUpRight size={15} />
-              </Link>
-            )}
           </div>
         </div>
       </div>
 
       {/* ════════ CONTEÚDO PRINCIPAL ════════ */}
-      <main
-        style={{
-          paddingLeft: 0,
-        }}
-      >
-        {children}
-      </main>
+      <main>{children}</main>
     </>
   )
 }
 
 /* ────────────────────────────────────────────────────────────────────────── */
 
-function SidebarHeader() {
+function SidebarHeader({ palette }: { palette: Palette }) {
   return (
     <div>
       <p style={{
         fontFamily: 'var(--font-heading)',
         fontSize: '18px',
         fontWeight: 700,
-        color: '#DAA520',
+        color: palette.titleAccent,
         letterSpacing: '-0.01em',
         lineHeight: 1.1,
+        transition: 'color 280ms ease',
       }}>
         Sophia
       </p>
       <p style={{
         fontFamily: 'var(--font-ui)',
         fontSize: '11px',
-        color: 'rgba(229,220,199,0.45)',
+        color: palette.subtitleMuted,
         letterSpacing: '0.14em',
         textTransform: 'uppercase',
         marginTop: '4px',
+        transition: 'color 280ms ease',
       }}>
         Brand Book
       </p>
@@ -372,10 +390,12 @@ function NavList({
   sections,
   activeId,
   onItemClick,
+  palette,
 }: {
   sections: typeof SECTIONS
   activeId: string
   onItemClick: (id: string) => void
+  palette: Palette
 }) {
   return (
     <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -394,18 +414,18 @@ function NavList({
               alignItems: 'baseline',
               gap: '10px',
               textAlign: 'left',
-              transition: 'color 220ms ease',
+              transition: 'color 280ms ease',
             }}
             onMouseEnter={e => {
               if (!isActive) {
                 const labelEl = (e.currentTarget as HTMLButtonElement).querySelector('span[data-role="label"]') as HTMLElement | null
-                if (labelEl) labelEl.style.color = 'rgba(229,220,199,0.90)'
+                if (labelEl) labelEl.style.color = palette.labelHover
               }
             }}
             onMouseLeave={e => {
               if (!isActive) {
                 const labelEl = (e.currentTarget as HTMLButtonElement).querySelector('span[data-role="label"]') as HTMLElement | null
-                if (labelEl) labelEl.style.color = 'rgba(229,220,199,0.50)'
+                if (labelEl) labelEl.style.color = palette.labelInactive
               }
             }}
           >
@@ -413,10 +433,10 @@ function NavList({
               fontFamily: 'var(--font-ui)',
               fontSize: '11px',
               fontWeight: 500,
-              color: isActive ? '#DAA520' : 'rgba(229,220,199,0.35)',
+              color: isActive ? palette.numActive : palette.numInactive,
               letterSpacing: '0.08em',
               fontVariantNumeric: 'tabular-nums',
-              transition: 'color 220ms ease',
+              transition: 'color 280ms ease',
               minWidth: '22px',
             }}>
               {s.num}
@@ -427,9 +447,9 @@ function NavList({
                 fontFamily: 'var(--font-ui)',
                 fontSize: '13px',
                 fontWeight: isActive ? 600 : 400,
-                color: isActive ? '#DAA520' : 'rgba(229,220,199,0.50)',
+                color: isActive ? palette.labelActive : palette.labelInactive,
                 letterSpacing: '0.01em',
-                transition: 'color 220ms ease',
+                transition: 'color 280ms ease',
               }}
             >
               {s.label}
@@ -443,18 +463,16 @@ function NavList({
 
 function SidebarCTAs({
   primary,
-  secondary,
+  palette,
 }: {
   primary: { href: string; label: string }
-  secondary: { href: string; label: string } | null
+  palette: Palette
 }) {
   return (
     <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '10px',
       paddingTop: '24px',
-      borderTop: '1px solid rgba(218,165,32,0.18)',
+      borderTop: `1px solid ${palette.divider}`,
+      transition: 'border-color 280ms ease',
     }}>
       <Link
         href={primary.href}
@@ -463,68 +481,34 @@ function SidebarCTAs({
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '10px',
+          width: '100%',
           padding: '10px 14px',
-          background: 'rgba(218,165,32,0.10)',
-          color: '#DAA520',
+          background: palette.ctaBg,
+          color: palette.ctaText,
           fontFamily: 'var(--font-ui)',
           fontSize: '13px',
           fontWeight: 600,
-          border: '1px solid rgba(218,165,32,0.30)',
+          border: `1px solid ${palette.ctaBorder}`,
           borderRadius: '8px',
           textDecoration: 'none',
           letterSpacing: '0.02em',
-          transition: 'background 180ms ease, border-color 180ms ease',
+          boxSizing: 'border-box',
+          transition: 'background 280ms ease, border-color 280ms ease, color 280ms ease',
         }}
         onMouseEnter={e => {
           const el = e.currentTarget as HTMLAnchorElement
-          el.style.background = 'rgba(218,165,32,0.18)'
-          el.style.borderColor = 'rgba(218,165,32,0.50)'
+          el.style.background = palette.ctaBgHover
+          el.style.borderColor = palette.ctaBorderHover
         }}
         onMouseLeave={e => {
           const el = e.currentTarget as HTMLAnchorElement
-          el.style.background = 'rgba(218,165,32,0.10)'
-          el.style.borderColor = 'rgba(218,165,32,0.30)'
+          el.style.background = palette.ctaBg
+          el.style.borderColor = palette.ctaBorder
         }}
       >
         {primary.label}
         <ArrowRight size={14} />
       </Link>
-
-      {secondary && (
-        <Link
-          href={secondary.href}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '10px',
-            padding: '8px 14px',
-            background: 'transparent',
-            color: 'rgba(229,220,199,0.70)',
-            fontFamily: 'var(--font-ui)',
-            fontSize: '12px',
-            fontWeight: 500,
-            border: '1px solid transparent',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            letterSpacing: '0.02em',
-            transition: 'color 180ms ease, border-color 180ms ease',
-          }}
-          onMouseEnter={e => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.color = '#E5DCC7'
-            el.style.borderColor = 'rgba(218,165,32,0.20)'
-          }}
-          onMouseLeave={e => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.color = 'rgba(229,220,199,0.70)'
-            el.style.borderColor = 'transparent'
-          }}
-        >
-          {secondary.label}
-          <ArrowUpRight size={14} />
-        </Link>
-      )}
     </div>
   )
 }

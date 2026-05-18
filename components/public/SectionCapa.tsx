@@ -53,33 +53,6 @@ export function SectionCapa() {
         </p>
       </div>
 
-      {/* Hint de scroll, discreto, fixed no rodapé da seção */}
-      <div style={{
-        position: 'absolute',
-        bottom: 'clamp(24px, 5vh, 56px)',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '10px',
-        opacity: 0.55,
-      }}>
-        <span style={{
-          fontFamily: 'var(--font-ui)',
-          fontSize: '11px',
-          letterSpacing: '0.22em',
-          textTransform: 'uppercase',
-          color: 'rgba(229,220,199,0.8)',
-        }}>
-          role para descer
-        </span>
-        <span style={{
-          width: '1px',
-          height: '32px',
-          background: 'linear-gradient(to bottom, rgba(218,165,32,0.7), transparent)',
-        }} />
-      </div>
     </section>
   )
 }

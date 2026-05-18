@@ -310,7 +310,8 @@ body {
 }
 
 /* ===== PUBLIC BRANDBOOK — SEÇÕES ===== */
-/* Padding generoso que acomoda a sidebar fixa de 240px no desktop */
+/* Padding simétrico que reserva 240px do sidebar de cada lado pra centralizar
+   o conteúdo relativo ao viewport, não relativo à área pós-sidebar. */
 .public-section {
   min-height: 100dvh;
   display: flex;
@@ -322,19 +323,23 @@ body {
 
 @media (min-width: 1024px) {
   .public-section {
-    padding-left: 320px;
-    padding-right: clamp(48px, 8vw, 160px);
+    padding-left: 280px;
+    padding-right: 280px;
   }
 }
 
 .public-section-inner {
   width: 100%;
   max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .public-section-inner--wide {
   width: 100%;
-  max-width: 920px;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Variante alternada com fundo claro (para inversão de contraste) */

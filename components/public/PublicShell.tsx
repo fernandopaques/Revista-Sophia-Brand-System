@@ -5,15 +5,14 @@ import Link from 'next/link'
 import { Menu, X, ArrowRight } from 'lucide-react'
 
 type Role = 'admin' | 'staff' | 'gratuito' | null
-type Theme = 'dark' | 'light'
 
 const SECTIONS = [
-  { id: 'capa',             num: '00', label: 'Capa',             theme: 'dark'  },
-  { id: 'por-que-sophia',   num: '01', label: 'Por que Sophia',   theme: 'light' },
-  { id: 'manifesto',        num: '02', label: 'Manifesto',        theme: 'dark'  },
-  { id: 'o-que-nos-move',   num: '03', label: 'O que nos move',   theme: 'light' },
-  { id: 'o-nome',           num: '04', label: 'O Nome',           theme: 'dark'  },
-  { id: 'encerramento',     num: '05', label: 'Encerramento',     theme: 'dark'  },
+  { id: 'capa',             num: '00', label: 'Capa'             },
+  { id: 'por-que-sophia',   num: '01', label: 'Por que Sophia'   },
+  { id: 'manifesto',        num: '02', label: 'Manifesto'        },
+  { id: 'o-que-nos-move',   num: '03', label: 'O que nos move'   },
+  { id: 'o-nome',           num: '04', label: 'O Nome'           },
+  { id: 'encerramento',     num: '05', label: 'Encerramento'     },
 ] as const
 
 type Palette = {
@@ -32,38 +31,23 @@ type Palette = {
   ctaText:        string
 }
 
-// Paleta de cores adaptativa por tema (fundo escuro x fundo claro)
-const PALETTE: Record<Theme, Palette> = {
-  dark: {
-    titleAccent:        '#DAA520',
-    subtitleMuted:      'rgba(229,220,199,0.45)',
-    numActive:          '#DAA520',
-    numInactive:        'rgba(229,220,199,0.35)',
-    labelActive:        '#DAA520',
-    labelInactive:      'rgba(229,220,199,0.50)',
-    labelHover:         'rgba(229,220,199,0.90)',
-    divider:            'rgba(218,165,32,0.20)',
-    ctaBg:              'rgba(218,165,32,0.10)',
-    ctaBgHover:         'rgba(218,165,32,0.18)',
-    ctaBorder:          'rgba(218,165,32,0.30)',
-    ctaBorderHover:     'rgba(218,165,32,0.55)',
-    ctaText:            '#DAA520',
-  },
-  light: {
-    titleAccent:        '#704214',
-    subtitleMuted:      'rgba(27,58,95,0.50)',
-    numActive:          '#DAA520',
-    numInactive:        'rgba(112,66,20,0.45)',
-    labelActive:        '#1B3A5F',
-    labelInactive:      'rgba(27,58,95,0.45)',
-    labelHover:         'rgba(27,58,95,0.85)',
-    divider:            'rgba(112,66,20,0.22)',
-    ctaBg:              'rgba(27,58,95,0.06)',
-    ctaBgHover:         'rgba(27,58,95,0.12)',
-    ctaBorder:          'rgba(27,58,95,0.30)',
-    ctaBorderHover:     'rgba(27,58,95,0.55)',
-    ctaText:            '#1B3A5F',
-  },
+// Paleta única gold-based: contrasta tanto com seções escuras (azul profundo)
+// quanto claras (creme), eliminando a transição entre seções que estava criando
+// delay perceptível ao usuário ao rolar.
+const PALETTE: Palette = {
+  titleAccent:        '#DAA520',
+  subtitleMuted:      'rgba(218,165,32,0.55)',
+  numActive:          '#DAA520',
+  numInactive:        'rgba(218,165,32,0.45)',
+  labelActive:        '#DAA520',
+  labelInactive:      'rgba(218,165,32,0.60)',
+  labelHover:         'rgba(218,165,32,0.90)',
+  divider:            'rgba(218,165,32,0.35)',
+  ctaBg:              'rgba(218,165,32,0.12)',
+  ctaBgHover:         'rgba(218,165,32,0.22)',
+  ctaBorder:          'rgba(218,165,32,0.45)',
+  ctaBorderHover:     'rgba(218,165,32,0.70)',
+  ctaText:            '#DAA520',
 }
 
 interface Props {
@@ -83,10 +67,8 @@ export function PublicShell({ children, isAuthenticated }: Props) {
     label: 'Dashboard',
   }
 
-  // Tema corrente derivado da seção ativa
-  const activeSection = SECTIONS.find(s => s.id === activeId) ?? SECTIONS[0]
-  const theme: Theme = activeSection.theme
-  const palette = PALETTE[theme]
+  // Paleta única — sem troca por seção, evita delay perceptível
+  const palette = PALETTE
 
   // Active section via IntersectionObserver — root é o scroll container
   useEffect(() => {

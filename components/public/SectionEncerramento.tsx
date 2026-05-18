@@ -20,7 +20,7 @@ export function SectionEncerramento({
   return (
     <section
       id="encerramento"
-      className="public-section"
+      className="public-section public-section--invert"
       style={{
         justifyContent: 'space-between',
       }}
@@ -42,7 +42,7 @@ export function SectionEncerramento({
           fontWeight: 600,
           letterSpacing: '0.32em',
           textTransform: 'uppercase',
-          color: '#DAA520',
+          color: '#704214',
         }}>
           05 — Encerramento
         </p>
@@ -55,7 +55,7 @@ export function SectionEncerramento({
             fontWeight: 600,
             lineHeight: 1.05,
             letterSpacing: '-0.025em',
-            color: '#E5DCC7',
+            color: '#1B3A5F',
             marginBottom: '24px',
           }}>
             A travessia continua.
@@ -65,7 +65,7 @@ export function SectionEncerramento({
             fontSize: 'clamp(1.25rem, 2.4vw, 1.875rem)',
             fontStyle: 'italic',
             lineHeight: 1.4,
-            color: '#DAA520',
+            color: '#704214',
             maxWidth: '34ch',
             margin: '0 auto',
           }}>
@@ -73,7 +73,7 @@ export function SectionEncerramento({
           </p>
         </div>
 
-        {/* CTAs centralizadas */}
+        {/* CTAs centralizadas — bg azul pra contrastar com fundo claro */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -88,8 +88,8 @@ export function SectionEncerramento({
               gap: '12px',
               height: '52px',
               padding: '0 28px',
-              background: '#DAA520',
-              color: '#1B3A5F',
+              background: '#1B3A5F',
+              color: '#E5DCC7',
               fontFamily: 'var(--font-ui)',
               fontSize: '15px',
               fontWeight: 600,
@@ -100,12 +100,12 @@ export function SectionEncerramento({
             }}
             onMouseEnter={e => {
               const el = e.currentTarget as HTMLAnchorElement
-              el.style.background = '#F0C842'
+              el.style.background = '#254d7a'
               el.style.transform = 'translateY(-1px)'
             }}
             onMouseLeave={e => {
               const el = e.currentTarget as HTMLAnchorElement
-              el.style.background = '#DAA520'
+              el.style.background = '#1B3A5F'
               el.style.transform = 'translateY(0)'
             }}
           >
@@ -116,11 +116,11 @@ export function SectionEncerramento({
         </div>
       </div>
 
-      {/* Rodapé com redes/contato */}
+      {/* Rodapé com redes/contato — cores para fundo claro */}
       <footer style={{
         paddingTop: 'clamp(32px, 5vh, 64px)',
         paddingBottom: 'clamp(16px, 3vh, 32px)',
-        borderTop: '1px solid rgba(218,165,32,0.18)',
+        borderTop: '1px solid rgba(112,66,20,0.22)',
         marginTop: 'clamp(40px, 6vh, 80px)',
         display: 'flex',
         flexWrap: 'wrap',
@@ -134,7 +134,7 @@ export function SectionEncerramento({
             fontFamily: 'var(--font-heading)',
             fontSize: '20px',
             fontWeight: 700,
-            color: '#DAA520',
+            color: '#1B3A5F',
             letterSpacing: '-0.01em',
           }}>
             Sophia
@@ -142,7 +142,7 @@ export function SectionEncerramento({
           <p style={{
             fontFamily: 'var(--font-ui)',
             fontSize: '12px',
-            color: 'rgba(229,220,199,0.55)',
+            color: 'rgba(10,15,27,0.5)',
             marginTop: '4px',
             letterSpacing: '0.04em',
           }}>
@@ -159,7 +159,7 @@ export function SectionEncerramento({
             aria-label="Instagram"
             style={iconLinkStyle}
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DAA520' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(229,220,199,0.65)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(10,15,27,0.5)' }}
           >
             <Instagram size={18} strokeWidth={1.6} />
           </a>
@@ -168,7 +168,7 @@ export function SectionEncerramento({
             aria-label="Email"
             style={iconLinkStyle}
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DAA520' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(229,220,199,0.65)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(10,15,27,0.5)' }}
           >
             <Mail size={18} strokeWidth={1.6} />
           </a>
@@ -179,7 +179,7 @@ export function SectionEncerramento({
             style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '12px',
-              color: 'rgba(229,220,199,0.65)',
+              color: 'rgba(10,15,27,0.5)',
               letterSpacing: '0.04em',
               textDecoration: 'none',
               display: 'inline-flex',
@@ -188,7 +188,7 @@ export function SectionEncerramento({
               transition: 'color 180ms ease',
             }}
             onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DAA520' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(229,220,199,0.65)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(10,15,27,0.5)' }}
           >
             sociedadeteosofica.org.br
             <ArrowUpRight size={12} />
@@ -206,7 +206,7 @@ const iconLinkStyle: React.CSSProperties = {
   width: '44px',
   height: '44px',
   borderRadius: '8px',
-  color: 'rgba(229,220,199,0.65)',
+  color: 'rgba(10,15,27,0.5)',
   textDecoration: 'none',
   transition: 'color 180ms ease',
 }

@@ -11,9 +11,11 @@ export function SectionEncerramento({
   isAuthenticated: boolean
   role?: Role
 }) {
-  const ctaPrimary = isAuthenticated
-    ? { href: '/dashboard', label: 'Ir para Dashboard' }
-    : { href: '/login', label: 'Entrar como membro' }
+  // Sempre "Dashboard"; logado vai direto, sem sessão passa pelo login (com opção criar conta)
+  const ctaPrimary = {
+    href: isAuthenticated ? '/dashboard' : '/login',
+    label: 'Dashboard',
+  }
 
   return (
     <section

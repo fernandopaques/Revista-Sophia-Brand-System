@@ -66,7 +66,7 @@ export default function AcessoRestritoPage() {
               marginBottom: '18px',
             }}
           >
-            Esta seção é exclusiva para administradores.
+            Esta seção exige permissão de equipe.
           </p>
           <p
             style={{
@@ -78,8 +78,8 @@ export default function AcessoRestritoPage() {
               margin: '0 auto',
             }}
           >
-            Você está autenticado, mas seu perfil não tem permissão para acessar esta página.
-            Se precisar de acesso, fale com um administrador da equipe.
+            Você está autenticado, mas seu perfil ainda não tem o nível de acesso
+            necessário. Fale com um administrador da Revista Sophia para liberar.
           </p>
         </div>
 

@@ -77,9 +77,11 @@ export function PublicShell({ children, isAuthenticated }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
-  const ctaPrimary = isAuthenticated
-    ? { href: '/dashboard', label: 'Ir para Dashboard' }
-    : { href: '/login', label: 'Entrar' }
+  // Sempre "Dashboard"; logado vai direto, sem sessão passa pelo login
+  const ctaPrimary = {
+    href: isAuthenticated ? '/dashboard' : '/login',
+    label: 'Dashboard',
+  }
 
   // Tema corrente derivado da seção ativa
   const activeSection = SECTIONS.find(s => s.id === activeId) ?? SECTIONS[0]
@@ -150,7 +152,6 @@ export function PublicShell({ children, isAuthenticated }: Props) {
           bottom: 0,
           width: '240px',
           padding: '56px 32px 40px',
-          display: 'flex',
           flexDirection: 'column',
           zIndex: 30,
           pointerEvents: 'auto',
@@ -183,7 +184,6 @@ export function PublicShell({ children, isAuthenticated }: Props) {
             right: '20px',
             width: '44px',
             height: '44px',
-            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             background: 'rgba(218,165,32,0.12)',
@@ -221,7 +221,6 @@ export function PublicShell({ children, isAuthenticated }: Props) {
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? 'auto' : 'none',
           transition: 'opacity 280ms cubic-bezier(0.16, 1, 0.3, 1)',
-          display: 'flex',
           flexDirection: 'column',
           padding: '24px',
         }}

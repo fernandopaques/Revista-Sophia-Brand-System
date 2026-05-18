@@ -30,13 +30,13 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup')
-  const isAdminOnly = pathname.startsWith('/assets')
+  const isAssetsArea = pathname.startsWith('/assets')
   const isProtected =
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/brand') ||
     pathname.startsWith('/settings') ||
     pathname.startsWith('/admin') ||
-    isAdminOnly
+    isAssetsArea
 
   if (!user && isProtected) {
     const url = request.nextUrl.clone()
@@ -44,14 +44,16 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if (user && isAdminOnly) {
+  // /assets: liberado para staff e admin; admin pode promover via /admin/usuarios
+  if (user && isAssetsArea) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
       .eq('id', user.id)
       .maybeSingle()
 
-    if (profile?.role !== 'admin') {
+    const isStaffOrAdmin = profile?.role === 'admin' || profile?.role === 'staff'
+    if (!isStaffOrAdmin) {
       const url = request.nextUrl.clone()
       url.pathname = '/acesso-restrito'
       return NextResponse.redirect(url)

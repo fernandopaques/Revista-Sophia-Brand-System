@@ -44,8 +44,8 @@ export function SidebarNav() {
 
       {/* ── Seção standalone (topo) ─────────────────────────────────────── */}
       {STANDALONE_ITEMS.map(item => {
-        const isActive = item.href === '/'
-          ? pathname === '/'
+        const isActive = item.href === '/dashboard'
+          ? pathname === '/dashboard'
           : pathname.startsWith(item.href)
         return (
           <NavItem key={item.slug} href={item.href} active={isActive}>

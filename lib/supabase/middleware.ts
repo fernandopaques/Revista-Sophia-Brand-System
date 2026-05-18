@@ -30,7 +30,13 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup')
-  const isProtected = pathname.startsWith('/brand') || pathname.startsWith('/assets') || pathname.startsWith('/settings')
+  const isAdminOnly = pathname.startsWith('/assets')
+  const isProtected =
+    pathname.startsWith('/dashboard') ||
+    pathname.startsWith('/brand') ||
+    pathname.startsWith('/settings') ||
+    pathname.startsWith('/admin') ||
+    isAdminOnly
 
   if (!user && isProtected) {
     const url = request.nextUrl.clone()
@@ -38,9 +44,23 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  if (user && isAdminOnly) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    if (profile?.role !== 'admin') {
+      const url = request.nextUrl.clone()
+      url.pathname = '/acesso-restrito'
+      return NextResponse.redirect(url)
+    }
+  }
+
   if (user && isAuthPage) {
     const url = request.nextUrl.clone()
-    url.pathname = '/'
+    url.pathname = '/dashboard'
     return NextResponse.redirect(url)
   }
 

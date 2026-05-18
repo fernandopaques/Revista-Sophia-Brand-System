@@ -1,0 +1,243 @@
+'use client'
+
+import Link from 'next/link'
+import { ArrowRight, ArrowUpRight, Mail, Instagram } from 'lucide-react'
+
+type Role = 'admin' | 'staff' | 'gratuito' | null
+
+export function SectionEncerramento({
+  isAuthenticated,
+  role,
+}: {
+  isAuthenticated: boolean
+  role: Role
+}) {
+  const ctaPrimary = isAuthenticated
+    ? { href: '/dashboard', label: 'Ir para Dashboard' }
+    : { href: '/login', label: 'Entrar como membro' }
+  const showAtivos = role === 'admin'
+
+  return (
+    <section
+      id="encerramento"
+      className="public-section"
+      style={{
+        justifyContent: 'space-between',
+      }}
+    >
+      <div className="public-section-inner--wide" style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'clamp(40px, 6vw, 80px)',
+        flex: 1,
+        justifyContent: 'center',
+        paddingTop: 'clamp(40px, 8vh, 96px)',
+      }}>
+        {/* Eyebrow */}
+        <p style={{
+          fontFamily: 'var(--font-ui)',
+          fontSize: '12px',
+          fontWeight: 600,
+          letterSpacing: '0.32em',
+          textTransform: 'uppercase',
+          color: '#DAA520',
+        }}>
+          05 — Encerramento
+        </p>
+
+        {/* Frase de fechamento */}
+        <div>
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(2.25rem, 6.5vw, 5rem)',
+            fontWeight: 600,
+            lineHeight: 1.05,
+            letterSpacing: '-0.025em',
+            color: '#E5DCC7',
+            marginBottom: '24px',
+          }}>
+            A travessia continua.
+          </h2>
+          <p style={{
+            fontFamily: 'var(--font-quote)',
+            fontSize: 'clamp(1.25rem, 2.4vw, 1.875rem)',
+            fontStyle: 'italic',
+            lineHeight: 1.4,
+            color: '#DAA520',
+            maxWidth: '32ch',
+          }}>
+            Em breve, todo o universo Sophia em um único lugar.
+          </p>
+        </div>
+
+        {/* CTAs */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '14px',
+        }}>
+          <Link
+            href={ctaPrimary.href}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '12px',
+              height: '52px',
+              padding: '0 28px',
+              background: '#DAA520',
+              color: '#1B3A5F',
+              fontFamily: 'var(--font-ui)',
+              fontSize: '15px',
+              fontWeight: 600,
+              borderRadius: '10px',
+              textDecoration: 'none',
+              letterSpacing: '0.02em',
+              transition: 'background 180ms ease, transform 180ms ease',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.background = '#F0C842'
+              el.style.transform = 'translateY(-1px)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.background = '#DAA520'
+              el.style.transform = 'translateY(0)'
+            }}
+          >
+            {ctaPrimary.label}
+            <ArrowRight size={17} />
+          </Link>
+
+          {showAtivos && (
+            <Link
+              href="/assets"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '12px',
+                height: '52px',
+                padding: '0 24px',
+                background: 'transparent',
+                color: '#E5DCC7',
+                fontFamily: 'var(--font-ui)',
+                fontSize: '14px',
+                fontWeight: 500,
+                border: '1px solid rgba(218,165,32,0.40)',
+                borderRadius: '10px',
+                textDecoration: 'none',
+                letterSpacing: '0.02em',
+                transition: 'background 180ms ease, border-color 180ms ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.background = 'rgba(218,165,32,0.10)'
+                el.style.borderColor = 'rgba(218,165,32,0.70)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.background = 'transparent'
+                el.style.borderColor = 'rgba(218,165,32,0.40)'
+              }}
+            >
+              Gestão de Ativos
+              <ArrowUpRight size={16} />
+            </Link>
+          )}
+        </div>
+      </div>
+
+      {/* Rodapé com redes/contato */}
+      <footer style={{
+        paddingTop: 'clamp(32px, 5vh, 64px)',
+        paddingBottom: 'clamp(16px, 3vh, 32px)',
+        borderTop: '1px solid rgba(218,165,32,0.18)',
+        marginTop: 'clamp(40px, 6vh, 80px)',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: '20px',
+      }} className="public-section-inner--wide">
+        {/* Identificação */}
+        <div>
+          <p style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '20px',
+            fontWeight: 700,
+            color: '#DAA520',
+            letterSpacing: '-0.01em',
+          }}>
+            Sophia
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-ui)',
+            fontSize: '12px',
+            color: 'rgba(229,220,199,0.55)',
+            marginTop: '4px',
+            letterSpacing: '0.04em',
+          }}>
+            Sociedade Teosófica no Brasil · Brasília
+          </p>
+        </div>
+
+        {/* Redes & contato */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            style={iconLinkStyle}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DAA520' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(229,220,199,0.65)' }}
+          >
+            <Instagram size={18} strokeWidth={1.6} />
+          </a>
+          <a
+            href="mailto:contato@revistasophia.org"
+            aria-label="Email"
+            style={iconLinkStyle}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DAA520' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(229,220,199,0.65)' }}
+          >
+            <Mail size={18} strokeWidth={1.6} />
+          </a>
+          <a
+            href="https://sociedadeteosofica.org.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: 'var(--font-ui)',
+              fontSize: '12px',
+              color: 'rgba(229,220,199,0.65)',
+              letterSpacing: '0.04em',
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              transition: 'color 180ms ease',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#DAA520' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(229,220,199,0.65)' }}
+          >
+            sociedadeteosofica.org.br
+            <ArrowUpRight size={12} />
+          </a>
+        </div>
+      </footer>
+    </section>
+  )
+}
+
+const iconLinkStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '44px',
+  height: '44px',
+  borderRadius: '8px',
+  color: 'rgba(229,220,199,0.65)',
+  textDecoration: 'none',
+  transition: 'color 180ms ease',
+}

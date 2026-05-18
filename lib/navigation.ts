@@ -24,7 +24,7 @@ export interface NavExternal {
 
 // ── Itens standalone (topo, sem grupo) ───────────────────────────────────────
 export const STANDALONE_ITEMS: NavStandalone[] = [
-  { title: 'Brand System',        href: '/',                         slug: 'home' },
+  { title: 'Brand System',        href: '/dashboard',                slug: 'home' },
   { title: 'Identidade da Marca', href: '/brand/identidade-visual',  slug: 'identidade-visual' },
   { title: 'Gestão de Ativos',    href: '/assets',                   slug: 'assets' },
 ]

@@ -15,7 +15,7 @@ const APP_ITEMS = [
   { icon: Palette,      label: 'Paleta',           slug: '/brand/paleta-de-cores',    color: '#C4956A', bg: 'rgba(112,66,20,0.12)',  active: false },
   { icon: BookMarked,   label: 'Manifesto',        slug: '/brand/manifesto',          color: '#6B4E8F', bg: 'rgba(107,78,143,0.10)', active: false },
   { icon: Layers,       label: 'Grafismos',        slug: '/brand/grafismos',          color: '#704214', bg: 'rgba(112,66,20,0.10)',  active: false },
-  { icon: LayoutGrid,   label: 'Brand System',     slug: '/',                         color: '#1B3A5F', bg: 'rgba(27,58,95,0.12)',   active: true  },
+  { icon: LayoutGrid,   label: 'Brand System',     slug: '/dashboard',                color: '#1B3A5F', bg: 'rgba(27,58,95,0.12)',   active: true  },
 ]
 
 export function TopBar({ onMenuOpen }: { onMenuOpen?: () => void }) {

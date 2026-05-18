@@ -99,7 +99,7 @@ export function AssetsSidebar({ onClose }: { onClose?: () => void }) {
 
       {/* Back button */}
       <button
-        onClick={() => router.push('/')}
+        onClick={() => router.push('/dashboard')}
         style={{
           display: 'flex',
           alignItems: 'center',

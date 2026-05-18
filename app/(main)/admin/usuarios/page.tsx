@@ -17,7 +17,7 @@ export default async function UsuariosPage() {
     .eq('id', user.id)
     .single()
 
-  if (profile?.role !== 'admin') redirect('/')
+  if (profile?.role !== 'admin') redirect('/acesso-restrito')
 
   const rawMembers = await listMembers()
   const members = [...rawMembers].sort((a, b) =>

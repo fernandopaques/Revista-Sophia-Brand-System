@@ -25,7 +25,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
         }}
       >
         <Link
-          href="/"
+          href="/dashboard"
           className="sidebar-logo-btn"
           style={{
             textDecoration: 'none',

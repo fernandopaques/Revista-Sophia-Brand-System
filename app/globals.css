@@ -309,6 +309,40 @@ body {
   }
 }
 
+/* ===== PUBLIC BRANDBOOK — SEÇÕES ===== */
+/* Padding generoso que acomoda a sidebar fixa de 240px no desktop */
+.public-section {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 64px);
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .public-section {
+    padding-left: 320px;
+    padding-right: clamp(48px, 8vw, 160px);
+  }
+}
+
+.public-section-inner {
+  width: 100%;
+  max-width: 720px;
+}
+
+.public-section-inner--wide {
+  width: 100%;
+  max-width: 920px;
+}
+
+/* Variante alternada com fundo claro (para inversão de contraste) */
+.public-section--invert {
+  background: #F4ECD6;
+  color: #1B3A5F;
+}
+
 /* ===== REDUCED MOTION — ACESSIBILIDADE ===== */
 @media (prefers-reduced-motion: reduce) {
   * {

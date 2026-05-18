@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import { SidebarNav } from './SidebarNav'
@@ -30,52 +29,34 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
           style={{
             textDecoration: 'none',
             display: 'flex',
-            alignItems: 'center',
-            gap: '16px',
+            flexDirection: 'column',
+            justifyContent: 'center',
             flex: 1,
-            padding: '20px',
+            padding: '24px 20px',
           }}
           title="Voltar à página inicial"
         >
-          <Image
-            src="/assets/logo-et.png"
-            alt="Revista Sophia"
-            width={62}
-            height={62}
-            className="flex-shrink-0"
-            priority
-          />
-          <div>
-            <p style={{
-              fontFamily: 'var(--font-heading)',
-              color: '#DAA520',
-              fontSize: '16px',
-              fontWeight: 700,
-              lineHeight: 1.2,
-              letterSpacing: '0.06em',
-            }}>
-              REVISTA
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-heading)',
-              color: '#DAA520',
-              fontSize: '16px',
-              fontWeight: 700,
-              lineHeight: 1.2,
-              letterSpacing: '0.06em',
-            }}>
-              SOPHIA
-            </p>
-            <p style={{
-              color: 'rgba(229,220,199,0.6)',
-              fontSize: '12px',
-              marginTop: '4px',
-              fontFamily: 'var(--font-ui)',
-              letterSpacing: '0.02em',
-            }}>
-              Sistema de Marca
-            </p>
-          </div>
+          <p style={{
+            fontFamily: 'var(--font-heading)',
+            color: '#DAA520',
+            fontSize: '26px',
+            fontWeight: 700,
+            lineHeight: 1.1,
+            letterSpacing: '-0.01em',
+          }}>
+            Sophia
+          </p>
+          <p style={{
+            color: 'rgba(229,220,199,0.55)',
+            fontSize: '11px',
+            marginTop: '6px',
+            fontFamily: 'var(--font-ui)',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            fontWeight: 500,
+          }}>
+            Sistema de Marca
+          </p>
         </Link>
 
         {/* Close button — mobile only */}

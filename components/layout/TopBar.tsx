@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import {
   Bell, LayoutGrid, Compass, BookOpen, Eye,
-  Target, MessageSquare, Palette, BookMarked, Layers, Menu, Globe,
+  Target, MessageSquare, Palette, BookMarked, Layers, Menu,
 } from 'lucide-react'
 
 const APP_ITEMS = [
@@ -78,42 +78,6 @@ export function TopBar({ onMenuOpen }: { onMenuOpen?: () => void }) {
 
       {/* Right icons */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-
-      {/* Voltar à página pública */}
-      <Link
-        href="/"
-        title="Ver brand book público"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          height: '36px',
-          padding: '0 12px',
-          background: 'transparent',
-          color: '#1B3A5F',
-          fontFamily: 'var(--font-ui)',
-          fontSize: '13px',
-          fontWeight: 500,
-          border: '1px solid rgba(218,165,32,0.30)',
-          borderRadius: '8px',
-          textDecoration: 'none',
-          letterSpacing: '0.01em',
-          transition: 'background 150ms ease, border-color 150ms ease',
-        }}
-        onMouseEnter={e => {
-          const el = e.currentTarget as HTMLAnchorElement
-          el.style.background = 'rgba(218,165,32,0.10)'
-          el.style.borderColor = 'rgba(218,165,32,0.55)'
-        }}
-        onMouseLeave={e => {
-          const el = e.currentTarget as HTMLAnchorElement
-          el.style.background = 'transparent'
-          el.style.borderColor = 'rgba(218,165,32,0.30)'
-        }}
-      >
-        <Globe size={15} strokeWidth={1.8} color="#DAA520" />
-        <span className="desktop-only">Página pública</span>
-      </Link>
 
       {/* Bell */}
       <div ref={bellRef} style={{ position: 'relative' }}>

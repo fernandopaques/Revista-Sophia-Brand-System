@@ -3,7 +3,7 @@ import { LoginForm } from '@/components/auth/LoginForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Entrar — Brand System Editora Teosófica',
+  title: 'Entrar — Brand System Revista Sophia',
 }
 
 export default async function LoginPage({
@@ -19,12 +19,11 @@ export default async function LoginPage({
     <div style={{ display: 'flex', height: '100dvh', overflow: 'hidden' }}>
 
       {/* Painel esquerdo — azul profundo decorativo */}
-      <div style={{
+      <div className="login-left-panel" style={{
         width: '72px',
         flexShrink: 0,
         background: '#1B3A5F',
         borderRight: '1px solid rgba(218,165,32,0.18)',
-        display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
         paddingBottom: '32px',
@@ -38,13 +37,11 @@ export default async function LoginPage({
       </div>
 
       {/* Painel central — formulário */}
-      <div style={{
-        flex: '0 0 560px',
+      <div className="login-center-panel" style={{
         background: '#F8F4E6',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '0 64px',
         position: 'relative',
       }}>
         {/* Marca */}
@@ -57,7 +54,7 @@ export default async function LoginPage({
               color: '#1B3A5F',
               letterSpacing: '0.04em',
             }}>
-              Editora Teosófica
+              Revista Sophia
             </span>
           </div>
 
@@ -79,7 +76,7 @@ export default async function LoginPage({
             lineHeight: 1.5,
             margin: 0,
           }}>
-            Acesse o sistema de marca da Editora Teosófica.
+            Acesse o sistema de marca da Revista Sophia.
           </p>
         </div>
 
@@ -143,8 +140,7 @@ export default async function LoginPage({
       </div>
 
       {/* Painel direito — gradiente ET */}
-      <div style={{
-        flex: 1,
+      <div className="login-right-panel" style={{
         background: 'linear-gradient(145deg, #0D2340 0%, #1B3A5F 35%, #2C1A4A 65%, #0A0F1B 100%)',
         position: 'relative',
         overflow: 'hidden',
@@ -172,7 +168,7 @@ export default async function LoginPage({
         }}>
           <Image
             src="/assets/logo-et.png"
-            alt="Editora Teosófica"
+            alt="Revista Sophia"
             width={200}
             height={200}
             style={{ opacity: 0.88, filter: 'drop-shadow(0 8px 32px rgba(218,165,32,0.22))' }}

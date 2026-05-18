@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/service'
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
@@ -53,4 +54,25 @@ export async function logout() {
   await supabase.auth.signOut()
   revalidatePath('/', 'layout')
   redirect('/login')
+}
+
+export async function updateProfile(name: string): Promise<{ error: string | null }> {
+  const trimmed = name.trim()
+  if (!trimmed) return { error: 'O nome não pode ficar vazio.' }
+
+  // Verify identity with the regular server client (respects auth cookies)
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Sessão expirada. Faça login novamente.' }
+
+  // Use service client to write — we verified the user above, and only update their own row
+  const service = createServiceClient()
+  const { error } = await service
+    .from('profiles')
+    .upsert({ id: user.id, name: trimmed }, { onConflict: 'id' })
+
+  if (error) return { error: 'Erro ao salvar. Tente novamente.' }
+
+  revalidatePath('/', 'layout')
+  return { error: null }
 }

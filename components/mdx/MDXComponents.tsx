@@ -7,7 +7,7 @@ import { Callout } from '@/components/brand/Callout'
 import { AssetDownload } from '@/components/brand/AssetDownload'
 
 /**
- * Retorna o map de componentes MDX customizados da Editora Teosófica.
+ * Retorna o map de componentes MDX customizados da Revista Sophia.
  * Os overrides de elementos HTML usam inline styles para garantir
  * funcionamento independente da compilação do Tailwind.
  *
@@ -247,7 +247,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       </pre>
     ),
 
-    // ===== COMPONENTES CUSTOMIZADOS DA ET =====
+    // ===== COMPONENTES CUSTOMIZADOS DA RS =====
     ColorPalette,
     ColorSwatch,
     FontSpecimen,

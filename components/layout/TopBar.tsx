@@ -43,7 +43,7 @@ export function TopBar({ onMenuOpen }: { onMenuOpen?: () => void }) {
         padding: '0 20px',
         gap: '8px',
         borderBottom: '1px solid rgba(218,165,32,0.18)',
-        background: '#E5DCC7',
+        background: '#F8F4E6',
         flexShrink: 0,
         position: 'relative',
         zIndex: 40,

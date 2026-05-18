@@ -1,4 +1,4 @@
-# Supabase — Brand System Editora Teosófica
+# Supabase — Brand System Revista Sophia
 
 ## Como aplicar as migrations
 

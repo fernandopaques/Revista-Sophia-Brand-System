@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Settings, LogOut } from 'lucide-react'
+import { Settings, LogOut, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
@@ -9,6 +9,7 @@ interface UserInfo {
   name: string
   email: string
   plan: string
+  isAdmin: boolean
 }
 
 function UserAvatar({ name, size = 40 }: { name: string; size?: number }) {
@@ -40,28 +41,36 @@ function UserAvatar({ name, size = 40 }: { name: string; size?: number }) {
 export function SidebarFooter() {
   const [open, setOpen] = useState(false)
   const [loggingOut, setLoggingOut] = useState(false)
-  const [user, setUser] = useState<UserInfo>({ name: '…', email: '', plan: 'Gratuito' })
+  const [user, setUser] = useState<UserInfo>({ name: '…', email: '', plan: 'Gratuito', isAdmin: false })
   const ref = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
-  // Load real user data
-  useEffect(() => {
+  const fetchUser = useCallback(async () => {
     const supabase = createClient()
-    supabase.auth.getUser().then(async ({ data }) => {
-      if (!data.user) return
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('name, role')
-        .eq('id', data.user.id)
-        .single()
+    const { data } = await supabase.auth.getUser()
+    if (!data.user) return
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('name, role')
+      .eq('id', data.user.id)
+      .single()
 
-      setUser({
-        name: profile?.name || data.user.email?.split('@')[0] || 'Usuário',
-        email: data.user.email || '',
-        plan: profile?.role === 'admin' ? 'Admin' : profile?.role === 'staff' ? 'Staff' : 'Gratuito',
-      })
+    setUser({
+      name: profile?.name || data.user.email?.split('@')[0] || 'Usuário',
+      email: data.user.email || '',
+      plan: profile?.role === 'admin' ? 'Admin' : profile?.role === 'staff' ? 'Staff' : 'Gratuito',
+      isAdmin: profile?.role === 'admin',
     })
   }, [])
+
+  // Load real user data
+  useEffect(() => { fetchUser() }, [fetchUser])
+
+  // Refresh when profile is saved from settings
+  useEffect(() => {
+    window.addEventListener('profile-updated', fetchUser)
+    return () => window.removeEventListener('profile-updated', fetchUser)
+  }, [fetchUser])
 
   // Close on outside click
   useEffect(() => {
@@ -140,6 +149,20 @@ export function SidebarFooter() {
             )}
           </div>
         </div>
+
+        {/* Usuários — apenas admin */}
+        {user.isAdmin && (
+          <Link
+            href="/admin/usuarios"
+            onClick={() => setOpen(false)}
+            style={{ ...menuItemStyle }}
+            onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(218,165,32,0.08)'; el.style.color = '#E5DCC7' }}
+            onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'transparent'; el.style.color = 'rgba(229,220,199,0.85)' }}
+          >
+            <Users size={16} style={{ flexShrink: 0, color: 'rgba(218,165,32,0.7)' }} />
+            Usuários
+          </Link>
+        )}
 
         {/* Configurações */}
         <Link

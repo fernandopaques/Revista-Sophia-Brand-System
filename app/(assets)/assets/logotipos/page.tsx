@@ -28,7 +28,7 @@ export default function LogotiposPage() {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <AssetBanner
         title="Logotipos"
-        subtitle="Versões oficiais do logotipo da Editora Teosófica"
+        subtitle="Versões oficiais do logotipo da Revista Sophia"
         gradient={GRADIENT}
       />
       <AssetToolbar

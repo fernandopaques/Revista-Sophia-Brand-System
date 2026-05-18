@@ -3,7 +3,7 @@ import { SignupForm } from '@/components/auth/SignupForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Criar conta — Brand System Editora Teosófica',
+  title: 'Criar conta — Brand System Revista Sophia',
 }
 
 export default function SignupPage() {
@@ -11,12 +11,11 @@ export default function SignupPage() {
     <div style={{ display: 'flex', height: '100dvh', overflow: 'hidden' }}>
 
       {/* Painel esquerdo — azul profundo decorativo */}
-      <div style={{
+      <div className="login-left-panel" style={{
         width: '72px',
         flexShrink: 0,
         background: '#1B3A5F',
         borderRight: '1px solid rgba(218,165,32,0.18)',
-        display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
         paddingBottom: '32px',
@@ -30,8 +29,7 @@ export default function SignupPage() {
       </div>
 
       {/* Painel central — formulário (scroll invisível se necessário) */}
-      <div style={{
-        flex: '0 0 560px',
+      <div className="login-center-panel" style={{
         background: '#F8F4E6',
         overflowY: 'auto',
         display: 'flex',
@@ -43,7 +41,7 @@ export default function SignupPage() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '48px 64px',
+          padding: '48px 0',
           minHeight: 'min-content',
         }}>
           {/* Marca */}
@@ -56,7 +54,7 @@ export default function SignupPage() {
                 color: '#1B3A5F',
                 letterSpacing: '0.04em',
               }}>
-                Editora Teosófica
+                Revista Sophia
               </span>
             </div>
 
@@ -78,7 +76,7 @@ export default function SignupPage() {
               lineHeight: 1.5,
               margin: 0,
             }}>
-              Junte-se ao sistema de marca da Editora Teosófica.
+              Junte-se ao sistema de marca da Revista Sophia.
             </p>
           </div>
 
@@ -111,8 +109,7 @@ export default function SignupPage() {
       </div>
 
       {/* Painel direito — gradiente ET */}
-      <div style={{
-        flex: 1,
+      <div className="login-right-panel" style={{
         background: 'linear-gradient(145deg, #0D2340 0%, #1B3A5F 35%, #2C1A4A 65%, #0A0F1B 100%)',
         position: 'relative',
         overflow: 'hidden',
@@ -140,7 +137,7 @@ export default function SignupPage() {
         }}>
           <Image
             src="/assets/logo-et.png"
-            alt="Editora Teosófica"
+            alt="Revista Sophia"
             width={200}
             height={200}
             style={{ opacity: 0.88, filter: 'drop-shadow(0 8px 32px rgba(218,165,32,0.22))' }}

@@ -1,5 +1,5 @@
 /**
- * OpenRouter streaming client for the Editora Teosófica Brand System.
+ * OpenRouter streaming client for the Revista Sophia Brand System.
  * Sends messages to OpenRouter and returns a ReadableStream of SSE chunks.
  */
 
@@ -44,7 +44,7 @@ export async function streamChat(
     headers: {
       Authorization: `Bearer ${apiKey}`,
       'HTTP-Referer': 'http://localhost:3001',
-      'X-Title': 'Editora Teosófica Brand System',
+      'X-Title': 'Revista Sophia Brand System',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({

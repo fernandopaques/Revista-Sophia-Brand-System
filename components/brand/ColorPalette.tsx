@@ -15,16 +15,12 @@ export function ColorPalette({ colors, title }: ColorPaletteProps) {
           fontWeight: 500,
           color: '#1B3A5F',
           marginTop: 0,
-          marginBottom: '16px',
+          marginBottom: '20px',
         }}>
           {title}
         </h3>
       )}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-        gap: '14px',
-      }}>
+      <div className="et-color-grid">
         {colors.map(color => (
           <ColorSwatch key={color.hex + color.name} {...color} />
         ))}

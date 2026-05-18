@@ -90,7 +90,7 @@
 
 /* ===== ESTILOS BASE ===== */
 body {
-  background-color: var(--color-et-creme);
+  background-color: var(--color-et-white);
   color: var(--color-et-preto);
   font-family: var(--font-ui);
   /* Scroll gerenciado por containers internos — sem scrollbar do browser */
@@ -172,15 +172,15 @@ body {
   animation: gradientFlow 8s ease infinite;
 }
 
-/* ===== RESPONSIVE — SIDEBAR DRAWER ===== */
-/* Desktop: static, always visible */
-.app-sidebar {
+/* ===== RESPONSIVE — SIDEBAR DRAWER (main app + assets) ===== */
+.app-sidebar,
+.assets-sidebar {
   flex-shrink: 0;
 }
 
-/* Mobile: fixed drawer, slides in */
 @media (max-width: 767px) {
-  .app-sidebar {
+  .app-sidebar,
+  .assets-sidebar {
     position: fixed;
     left: 0;
     top: 0;
@@ -191,9 +191,21 @@ body {
     box-shadow: 4px 0 32px rgba(0, 0, 0, 0.3);
   }
 
-  .app-sidebar.sidebar-open {
+  .app-sidebar.sidebar-open,
+  .assets-sidebar.sidebar-open {
     transform: translateX(0);
   }
+}
+
+/* ===== RESPONSIVE — LOGIN ===== */
+.login-left-panel  { display: flex; }
+.login-right-panel { flex: 1; }
+.login-center-panel { flex: 0 0 560px; padding: 0 64px; }
+
+@media (max-width: 767px) {
+  .login-left-panel  { display: none; }
+  .login-right-panel { display: none; }
+  .login-center-panel { flex: 1; padding: 0 28px; }
 }
 
 /* ===== RESPONSIVE — PAGE PADDING ===== */
@@ -281,6 +293,19 @@ body {
 @media (min-width: 768px) {
   .mobile-only {
     display: none !important;
+  }
+}
+
+/* ===== PALETA DE CORES — GRID ===== */
+.et-color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 20px;
+}
+
+@media (max-width: 480px) {
+  .et-color-grid {
+    gap: 20px 14px;
   }
 }
 

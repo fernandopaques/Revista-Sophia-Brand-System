@@ -12,6 +12,7 @@ import {
   FileText,
   Package,
   ArrowLeft,
+  X,
 } from 'lucide-react'
 
 const ASSET_TYPES = [
@@ -25,7 +26,7 @@ const ASSET_TYPES = [
   { slug: 'outros',     label: 'Outros',       icon: Package   },
 ]
 
-export function AssetsSidebar() {
+export function AssetsSidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -44,8 +45,8 @@ export function AssetsSidebar() {
       }}
     >
       {/* Header */}
-      <div style={{ padding: '24px 20px 16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+      <div style={{ padding: '24px 20px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span
             style={{
               fontFamily: 'var(--font-heading)',
@@ -69,6 +70,31 @@ export function AssetsSidebar() {
             Gestão de Ativos
           </span>
         </div>
+
+        {/* Close button — mobile only */}
+        {onClose && (
+          <button
+            className="mobile-only"
+            onClick={onClose}
+            aria-label="Fechar menu"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '36px',
+              height: '36px',
+              borderRadius: '8px',
+              background: 'rgba(218,165,32,0.1)',
+              border: '1px solid rgba(218,165,32,0.25)',
+              cursor: 'pointer',
+              transition: 'background 150ms ease',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(218,165,32,0.2)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'rgba(218,165,32,0.1)' }}
+          >
+            <X size={16} color="#DAA520" />
+          </button>
+        )}
       </div>
 
       {/* Back button */}

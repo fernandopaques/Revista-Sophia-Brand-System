@@ -173,6 +173,7 @@ export function MembersTable({ initialMembers }: { initialMembers: Member[] }) {
         borderRadius: '12px',
         overflow: 'hidden',
       }}>
+        <div style={{ overflowX: 'auto', scrollbarWidth: 'none' }}>
         {/* Header */}
         <div style={{
           display: 'grid',
@@ -180,6 +181,7 @@ export function MembersTable({ initialMembers }: { initialMembers: Member[] }) {
           background: '#F8F4E6',
           padding: '12px 24px',
           gap: '16px',
+          minWidth: '620px',
         }}>
           {['Nome', 'Email', 'Role', 'Desde', 'Ações'].map(col => (
             <span key={col} style={{
@@ -211,6 +213,7 @@ export function MembersTable({ initialMembers }: { initialMembers: Member[] }) {
                 padding: '16px 24px',
                 gap: '16px',
                 alignItems: 'center',
+                minWidth: '620px',
                 borderBottom: isLast ? 'none' : '1px solid rgba(10,15,27,0.06)',
                 background: isLoading ? 'rgba(27,58,95,0.02)' : 'transparent',
                 opacity: isLoading ? 0.6 : 1,
@@ -461,6 +464,7 @@ export function MembersTable({ initialMembers }: { initialMembers: Member[] }) {
             Nenhum membro encontrado.
           </div>
         )}
+        </div>{/* /scroll wrapper */}
       </div>
     </div>
   )

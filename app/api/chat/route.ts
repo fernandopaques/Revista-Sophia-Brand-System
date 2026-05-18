@@ -1,7 +1,7 @@
 /**
  * POST /api/chat
  *
- * SSE streaming chat endpoint for the Editora Teosófica Brand System AI assistant.
+ * SSE streaming chat endpoint for the Revista Sophia Brand System AI assistant.
  * Receives a conversation history, performs RAG retrieval, and proxies the
  * OpenRouter stream back to the client in our normalized SSE format.
  *

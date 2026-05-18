@@ -89,7 +89,7 @@ export default function HomePage() {
             lineHeight: 1.4,
             marginBottom: '10px',
           }}>
-            Editora Teosófica
+            Revista Sophia
           </p>
           <p style={{
             fontFamily: 'var(--font-ui)',

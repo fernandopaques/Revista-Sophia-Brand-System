@@ -35,8 +35,8 @@ const cormorantGaramond = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: 'Brand System — Editora Teosófica',
-  description: 'Sistema de identidade de marca da Editora Teosófica',
+  title: 'Brand System — Revista Sophia',
+  description: 'Sistema de identidade de marca da Revista Sophia',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

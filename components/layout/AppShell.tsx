@@ -21,7 +21,7 @@ export function AppShell({ children }: AppShellProps) {
   const closeSidebar = useCallback(() => setSidebarOpen(false), [])
 
   return (
-    <div className="flex h-dvh overflow-hidden" style={{ background: '#E5DCC7' }}>
+    <div className="flex h-dvh overflow-hidden" style={{ background: '#F8F4E6' }}>
 
       {/* Mobile backdrop */}
       <div
@@ -41,7 +41,7 @@ export function AppShell({ children }: AppShellProps) {
 
       {/* Sidebar — static on desktop, drawer on mobile */}
       <div className={`app-sidebar${sidebarOpen ? ' sidebar-open' : ''}`}>
-        <Sidebar />
+        <Sidebar onClose={closeSidebar} />
       </div>
 
       {/* Main content */}

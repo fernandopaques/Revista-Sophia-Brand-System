@@ -1,6 +1,7 @@
 'use client'
 import { useState, useCallback } from 'react'
 import { User, Lock, Grid3x3 } from 'lucide-react'
+import { updateProfile } from '@/lib/supabase/actions'
 import { createClient } from '@/lib/supabase/client'
 
 type Tab = 'conta' | 'seguranca' | 'aplicativos'
@@ -112,19 +113,14 @@ function ContaTab({ initialName, email }: { initialName: string; email: string }
       return
     }
     setLoading(true)
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) { showToast('Sessão expirada. Faça login novamente.', 'error'); setLoading(false); return }
 
-    const { error } = await supabase
-      .from('profiles')
-      .update({ name: name.trim() })
-      .eq('id', user.id)
+    const result = await updateProfile(name)
 
-    if (error) {
-      showToast('Erro ao salvar. Tente novamente.', 'error')
+    if (result.error) {
+      showToast(result.error, 'error')
     } else {
       showToast('Nome atualizado com sucesso.', 'success')
+      window.dispatchEvent(new CustomEvent('profile-updated'))
     }
     setLoading(false)
   }, [name])

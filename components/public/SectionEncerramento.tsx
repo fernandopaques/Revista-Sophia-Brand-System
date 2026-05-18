@@ -26,10 +26,12 @@ export function SectionEncerramento({
       <div className="public-section-inner--wide" style={{
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center',
         gap: 'clamp(40px, 6vw, 80px)',
         flex: 1,
         justifyContent: 'center',
         paddingTop: 'clamp(40px, 8vh, 96px)',
+        textAlign: 'center',
       }}>
         {/* Eyebrow */}
         <p style={{
@@ -43,7 +45,7 @@ export function SectionEncerramento({
           05 — Encerramento
         </p>
 
-        {/* Frase de fechamento */}
+        {/* Frase de fechamento centralizada */}
         <div>
           <h2 style={{
             fontFamily: 'var(--font-heading)',
@@ -62,17 +64,19 @@ export function SectionEncerramento({
             fontStyle: 'italic',
             lineHeight: 1.4,
             color: '#DAA520',
-            maxWidth: '32ch',
+            maxWidth: '34ch',
+            margin: '0 auto',
           }}>
             Em breve, todo o universo Sophia em um único lugar.
           </p>
         </div>
 
-        {/* CTAs */}
+        {/* CTAs centralizadas */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
           gap: '14px',
+          justifyContent: 'center',
         }}>
           <Link
             href={ctaPrimary.href}

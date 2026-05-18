@@ -4,7 +4,7 @@ export function SectionManifesto() {
       id="manifesto"
       className="public-section"
     >
-      <div className="public-section-inner--wide">
+      <div className="public-section-inner--wide" style={{ textAlign: 'center' }}>
         {/* Eyebrow */}
         <p style={{
           fontFamily: 'var(--font-ui)',
@@ -18,10 +18,10 @@ export function SectionManifesto() {
           02 — Manifesto
         </p>
 
-        {/* Frase de soco — escala dramática */}
+        {/* Frase de soco — escala dramática, centralizada como na Cayena */}
         <h2 style={{
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(2.25rem, 7vw, 5.5rem)',
+          fontSize: 'clamp(2.25rem, 6.5vw, 5rem)',
           fontWeight: 600,
           lineHeight: 1.05,
           letterSpacing: '-0.025em',
@@ -32,16 +32,17 @@ export function SectionManifesto() {
           <span style={{ color: '#DAA520' }}>A Sophia recusa esse mercado.</span>
         </h2>
 
-        {/* Manifesto em duas colunas no desktop, 1 no mobile */}
+        {/* Manifesto em duas colunas no desktop, 1 no mobile — texto à esquerda */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: 'clamp(28px, 4vw, 56px)',
             fontFamily: 'var(--font-subheading)',
             fontSize: 'clamp(1rem, 1.4vw, 1.2rem)',
             lineHeight: 1.7,
             color: 'rgba(229,220,199,0.88)',
+            textAlign: 'left',
           }}
         >
           <div>

@@ -4,7 +4,7 @@ export function SectionONome() {
       id="o-nome"
       className="public-section"
     >
-      <div className="public-section-inner--wide">
+      <div className="public-section-inner--wide" style={{ textAlign: 'center' }}>
         {/* Eyebrow */}
         <p style={{
           fontFamily: 'var(--font-ui)',
@@ -18,14 +18,14 @@ export function SectionONome() {
           04 — O Nome
         </p>
 
-        {/* Layout: σοφία em escala + texto */}
+        {/* Layout: σοφία em escala centralizada + texto */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr)',
-          gap: 'clamp(28px, 5vw, 64px)',
+          display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
+          gap: 'clamp(28px, 5vw, 64px)',
         }}>
-          {/* Palavra grega — peça visual */}
+          {/* Palavra grega — peça visual centralizada */}
           <div style={{
             fontFamily: 'var(--font-heading)',
             fontSize: 'clamp(4.5rem, 14vw, 12rem)',
@@ -39,13 +39,14 @@ export function SectionONome() {
             σοφία
           </div>
 
-          {/* Texto */}
+          {/* Texto em coluna estreita, centrado no bloco mas alinhado à esquerda */}
           <div style={{
-            maxWidth: '64ch',
+            maxWidth: '56ch',
             fontFamily: 'var(--font-subheading)',
             fontSize: 'clamp(1.0625rem, 1.4vw, 1.25rem)',
             lineHeight: 1.7,
             color: 'rgba(229,220,199,0.88)',
+            textAlign: 'left',
           }}>
             <p style={{ marginBottom: '20px' }}>
               <em style={{ color: '#DAA520' }}>Sophia</em> é a palavra grega para

@@ -59,7 +59,6 @@ export function SectionPorQueSophia() {
               fontSize: 'clamp(1rem, 1.4vw, 1.25rem)',
               lineHeight: 1.65,
               color: 'rgba(10,15,27,0.78)',
-              maxWidth: '60ch',
             }}>
               <p style={{ marginBottom: '16px' }}>
                 A Revista Sophia é a voz editorial da Sociedade Teosófica no Brasil — uma

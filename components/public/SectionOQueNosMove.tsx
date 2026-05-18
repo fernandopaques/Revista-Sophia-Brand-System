@@ -27,7 +27,7 @@ export function SectionOQueNosMove() {
       id="o-que-nos-move"
       className="public-section public-section--invert"
     >
-      <div className="public-section-inner--wide">
+      <div className="public-section-inner--wide" style={{ textAlign: 'center' }}>
         {/* Eyebrow */}
         <p style={{
           fontFamily: 'var(--font-ui)',
@@ -41,7 +41,7 @@ export function SectionOQueNosMove() {
           03 — O que nos move
         </p>
 
-        {/* Título */}
+        {/* Título centralizado */}
         <h2 style={{
           fontFamily: 'var(--font-heading)',
           fontSize: 'clamp(2rem, 5vw, 3.75rem)',
@@ -50,17 +50,19 @@ export function SectionOQueNosMove() {
           letterSpacing: '-0.02em',
           color: '#1B3A5F',
           marginBottom: 'clamp(36px, 6vw, 64px)',
-          maxWidth: '20ch',
+          margin: '0 auto clamp(36px, 6vw, 64px)',
+          maxWidth: '18ch',
         }}>
           Quatro convicções que não negociamos.
         </h2>
 
-        {/* Grid 2×2 de valores */}
+        {/* Grid 2×2 de valores — texto dos cards à esquerda */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
             gap: 'clamp(20px, 2.5vw, 32px)',
+            textAlign: 'left',
           }}
         >
           {VALUES.map(v => (

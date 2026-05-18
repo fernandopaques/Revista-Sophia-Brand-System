@@ -310,8 +310,9 @@ body {
 }
 
 /* ===== PUBLIC BRANDBOOK — SEÇÕES ===== */
-/* Padding simétrico que reserva 240px do sidebar de cada lado pra centralizar
-   o conteúdo relativo ao viewport, não relativo à área pós-sidebar. */
+/* Padding simétrico mirror do sidebar (240px de cada lado) pra que o
+   conteúdo seja centralizado relativo ao viewport, não relativo
+   à área pós-sidebar. */
 .public-section {
   min-height: 100dvh;
   display: flex;
@@ -323,29 +324,39 @@ body {
 
 @media (min-width: 1024px) {
   .public-section {
-    padding-left: 280px;
-    padding-right: 280px;
+    padding-left: 240px;
+    padding-right: 240px;
   }
 }
 
-.public-section-inner {
+.public-section-inner,
+.public-section-inner--wide {
   width: 100%;
-  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.public-section-inner--wide {
-  width: 100%;
-  max-width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.public-section-inner       { max-width: 640px; }
+.public-section-inner--wide { max-width: 820px; }
 
 /* Variante alternada com fundo claro (para inversão de contraste) */
 .public-section--invert {
   background: #F4ECD6;
   color: #1B3A5F;
+}
+
+/* ===== PUBLIC SHELL — VISIBILIDADE SIDEBAR x HAMBURGER ===== */
+/* Alinha o breakpoint da sidebar/hamburger com o do padding (1024px)
+   pra evitar zona morta no tablet onde sidebar aparece mas o conteúdo
+   não cleared o espaço dela. */
+.public-shell-sidebar  { display: none; }
+.public-shell-hamburger { display: flex; }
+.public-shell-menu      { display: flex; }
+
+@media (min-width: 1024px) {
+  .public-shell-sidebar  { display: flex; }
+  .public-shell-hamburger { display: none; }
+  .public-shell-menu      { display: none !important; }
 }
 
 /* ===== REDUCED MOTION — ACESSIBILIDADE ===== */

@@ -141,7 +141,7 @@ export function PublicShell({ children, isAuthenticated }: Props) {
     <>
       {/* ════════ SIDEBAR DESKTOP ════════ */}
       <aside
-        className="desktop-only"
+        className="public-shell-sidebar"
         aria-label="Navegação do brand book"
         style={{
           position: 'fixed',
@@ -174,7 +174,7 @@ export function PublicShell({ children, isAuthenticated }: Props) {
       {/* ════════ HAMBURGER MOBILE ════════ */}
       {!menuOpen && (
         <button
-          className="mobile-only"
+          className="public-shell-hamburger"
           onClick={() => setMenuOpen(true)}
           aria-label="Abrir menu de navegação"
           style={{
@@ -211,7 +211,7 @@ export function PublicShell({ children, isAuthenticated }: Props) {
 
       {/* ════════ MOBILE OVERLAY ════════ */}
       <div
-        className="mobile-only"
+        className="public-shell-menu"
         aria-hidden={!menuOpen}
         style={{
           position: 'fixed',

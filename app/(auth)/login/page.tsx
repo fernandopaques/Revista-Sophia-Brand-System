@@ -143,40 +143,22 @@ export default async function LoginPage({
         background: 'linear-gradient(145deg, #0D2340 0%, #1B3A5F 35%, #2C1A4A 65%, #0A0F1B 100%)',
         position: 'relative',
         overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
-        {/* Glow dourado atrás do logo */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: '340px',
-          height: '340px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(218,165,32,0.14) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-
-        {/* Logo centralizado */}
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-        }}>
-          <img
-            src="https://soqtksiiztlvsweotylz.supabase.co/storage/v1/object/public/brand-assets/outros/5fe15a95-bb40-4fc5-bc2c-47684039e7f8-LOGO SOPHIA WEB.webp"
-            alt="Sophia"
-            style={{
-              width: '78%',
-              height: 'auto',
-              display: 'block',
-              opacity: 0.92,
-              filter: 'drop-shadow(0 8px 32px rgba(218,165,32,0.28))',
-            }}
-          />
-        </div>
+        {/* Logo centralizado via flexbox */}
+        <img
+          src="https://soqtksiiztlvsweotylz.supabase.co/storage/v1/object/public/brand-assets/outros/5fe15a95-bb40-4fc5-bc2c-47684039e7f8-LOGO SOPHIA WEB.webp"
+          alt="Sophia"
+          style={{
+            width: '90%',
+            height: 'auto',
+            display: 'block',
+            opacity: 0.95,
+            filter: 'drop-shadow(0 8px 32px rgba(218,165,32,0.28))',
+          }}
+        />
 
         {/* Slogan */}
         <div style={{

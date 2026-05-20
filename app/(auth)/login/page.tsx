@@ -160,28 +160,6 @@ export default async function LoginPage({
           }}
         />
 
-        {/* Slogan */}
-        <div style={{
-          position: 'absolute',
-          bottom: '52px',
-          right: '52px',
-          textAlign: 'right',
-          pointerEvents: 'none',
-        }}>
-          <p style={{
-            fontFamily: 'var(--font-subheading)',
-            fontSize: '22px',
-            fontWeight: 600,
-            fontStyle: 'italic',
-            color: '#DAA520',
-            lineHeight: 1.2,
-            margin: 0,
-            letterSpacing: '0.01em',
-            textShadow: '0 2px 24px rgba(218,165,32,0.25)',
-          }}>
-            Leituras para Viver Melhor
-          </p>
-        </div>
       </div>
 
     </div>

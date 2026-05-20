@@ -532,6 +532,38 @@ body {
   }
 }
 
+/* ===== ASSET BANNER — ANIMAÇÃO GRADIENTE ===== */
+@keyframes assetGradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes bannerSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.asset-banner {
+  background-size: 400% 400%;
+  animation: assetGradientShift 8s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.asset-banner-sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.07) 50%,
+    transparent 70%
+  );
+  animation: bannerSweep 4s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+
 /* ===== REDUCED MOTION — ACESSIBILIDADE ===== */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -540,7 +572,12 @@ body {
     animation-iteration-count: 1 !important;
   }
 
-  .login-gradient {
+  .login-gradient,
+  .asset-banner {
     animation: none;
+  }
+
+  .asset-banner-sweep {
+    display: none;
   }
 }

@@ -533,20 +533,19 @@ body {
 }
 
 /* ===== ASSET BANNER — ANIMAÇÃO GRADIENTE ===== */
-/* Desloca levemente o gradiente no canto — sem preencher o banner inteiro */
 @keyframes assetGradientShift {
   0%   { background-position: 0% 0%; }
-  50%  { background-position: 25% 25%; }
+  50%  { background-position: 60% 60%; }
   100% { background-position: 0% 0%; }
 }
 
 /* Gradiente passado via CSS custom property --banner-gradient */
 .asset-banner {
   background-image: var(--banner-gradient);
-  background-size: 300% 300%;
+  background-size: 350% 350%;
   background-position: 0% 0%;
   background-repeat: no-repeat;
-  animation: assetGradientShift 12s ease infinite;
+  animation: assetGradientShift 10s ease-in-out infinite;
   position: relative;
   overflow: hidden;
   height: 180px;

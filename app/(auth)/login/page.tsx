@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { LoginForm } from '@/components/auth/LoginForm'
 import type { Metadata } from 'next'
 
@@ -166,12 +165,16 @@ export default async function LoginPage({
           transform: 'translate(-50%, -50%)',
           pointerEvents: 'none',
         }}>
-          <Image
-            src="/assets/logo-et.png"
-            alt="Revista Sophia"
-            width={200}
-            height={200}
-            style={{ opacity: 0.88, filter: 'drop-shadow(0 8px 32px rgba(218,165,32,0.22))' }}
+          <img
+            src="https://soqtksiiztlvsweotylz.supabase.co/storage/v1/object/public/brand-assets/outros/5fe15a95-bb40-4fc5-bc2c-47684039e7f8-LOGO SOPHIA WEB.webp"
+            alt="Sophia"
+            style={{
+              width: '280px',
+              height: 'auto',
+              display: 'block',
+              opacity: 0.92,
+              filter: 'drop-shadow(0 8px 32px rgba(218,165,32,0.28))',
+            }}
           />
         </div>
 

@@ -533,22 +533,18 @@ body {
 }
 
 /* ===== ASSET BANNER — ANIMAÇÃO GRADIENTE ===== */
+/* Desloca levemente o gradiente no canto — sem preencher o banner inteiro */
 @keyframes assetGradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes bannerSweep {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 25% 25%; }
+  100% { background-position: 0% 0%; }
 }
 
 /* Gradiente passado via CSS custom property --banner-gradient */
 .asset-banner {
   background-image: var(--banner-gradient);
-  background-size: 400% 400%;
-  background-position: 0% 50%;
+  background-size: 300% 300%;
+  background-position: 0% 0%;
   background-repeat: no-repeat;
   animation: assetGradientShift 12s ease infinite;
   position: relative;
@@ -559,19 +555,6 @@ body {
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-}
-
-.asset-banner-sweep {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.15) 50%,
-    transparent 70%
-  );
-  animation: bannerSweep 9s ease-in-out 1s infinite;
-  pointer-events: none;
 }
 
 /* ===== REDUCED MOTION — ACESSIBILIDADE ===== */
@@ -594,8 +577,4 @@ body {
 /* Banner: animação decorativa intencional — sobrescreve prefers-reduced-motion */
 .asset-banner {
   animation: assetGradientShift 12s ease infinite !important;
-}
-
-.asset-banner-sweep {
-  animation: bannerSweep 9s ease-in-out 1s infinite !important;
 }

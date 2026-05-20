@@ -12,8 +12,6 @@ export function AssetBanner({ title, subtitle, gradient }: AssetBannerProps) {
       className="asset-banner"
       style={{ '--banner-gradient': gradient } as React.CSSProperties}
     >
-      <div className="asset-banner-sweep" />
-
       <h1
         style={{
           fontFamily: 'var(--font-heading)',

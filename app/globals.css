@@ -544,6 +544,21 @@ body {
   100% { transform: translateX(200%); }
 }
 
+/* Gradiente passado via CSS custom property --banner-gradient */
+.asset-banner {
+  background: var(--banner-gradient);
+  background-size: 400% 400%;
+  animation: assetGradientShift 8s ease infinite;
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .asset-banner-sweep {
   position: absolute;
   inset: 0;

@@ -9,20 +9,8 @@ interface AssetBannerProps {
 export function AssetBanner({ title, subtitle, gradient }: AssetBannerProps) {
   return (
     <div
-      style={{
-        height: '180px',
-        background: gradient,
-        backgroundSize: '400% 400%',
-        backgroundPosition: '0% 50%',
-        animation: 'assetGradientShift 8s ease infinite',
-        position: 'relative',
-        overflow: 'hidden',
-        padding: '40px 48px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        flexShrink: 0,
-      }}
+      className="asset-banner"
+      style={{ '--banner-gradient': gradient } as React.CSSProperties}
     >
       <div className="asset-banner-sweep" />
 

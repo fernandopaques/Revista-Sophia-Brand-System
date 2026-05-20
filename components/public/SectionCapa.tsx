@@ -1,3 +1,7 @@
+const LOGO_URL =
+  'https://soqtksiiztlvsweotylz.supabase.co/storage/v1/object/public/brand-assets/' +
+  'outros/5fe15a95-bb40-4fc5-bc2c-47684039e7f8-LOGO SOPHIA WEB.webp'
+
 export function SectionCapa() {
   return (
     <section
@@ -15,19 +19,16 @@ export function SectionCapa() {
         alignItems: 'center',
         gap: 'clamp(20px, 3vh, 40px)',
       }}>
-        {/* Hero — "SOPHIA" em escala monumental, peso regular */}
-        <h1 style={{
-          fontFamily: 'var(--font-heading)',
-          fontWeight: 400,
-          fontSize: 'clamp(4.5rem, 18vw, 16rem)',
-          lineHeight: 0.95,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: '#DAA520',
-          margin: 0,
-        }}>
-          Sophia
-        </h1>
+        {/* Logo Sophia — substitui o letreiro tipográfico */}
+        <img
+          src={LOGO_URL}
+          alt="Sophia"
+          style={{
+            width: 'clamp(280px, 65vw, 920px)',
+            height: 'auto',
+            display: 'block',
+          }}
+        />
 
         {/* Subtítulo Brand Book */}
         <p style={{
@@ -37,11 +38,11 @@ export function SectionCapa() {
           letterSpacing: '0.42em',
           textTransform: 'uppercase',
           color: '#E5DCC7',
+          margin: 0,
         }}>
           Brand Book
         </p>
       </div>
-
     </section>
   )
 }

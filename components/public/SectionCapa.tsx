@@ -24,7 +24,7 @@ export function SectionCapa() {
           src={LOGO_URL}
           alt="Sophia"
           style={{
-            width: 'clamp(280px, 65vw, 920px)',
+            width: 'clamp(320px, 82vw, 1120px)',
             height: 'auto',
             display: 'block',
           }}

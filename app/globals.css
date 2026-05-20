@@ -546,9 +546,11 @@ body {
 
 /* Gradiente passado via CSS custom property --banner-gradient */
 .asset-banner {
-  background: var(--banner-gradient);
+  background-image: var(--banner-gradient);
   background-size: 400% 400%;
-  animation: assetGradientShift 8s ease infinite;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  animation: assetGradientShift 12s ease infinite;
   position: relative;
   overflow: hidden;
   height: 180px;
@@ -563,12 +565,12 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.20) 50%,
-    transparent 80%
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 70%
   );
-  animation: bannerSweep 4.5s ease-in-out 0.5s infinite;
+  animation: bannerSweep 9s ease-in-out 1s infinite;
   pointer-events: none;
 }
 

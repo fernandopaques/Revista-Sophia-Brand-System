@@ -590,3 +590,12 @@ body {
     display: none;
   }
 }
+
+/* Banner: animação decorativa intencional — sobrescreve prefers-reduced-motion */
+.asset-banner {
+  animation: assetGradientShift 12s ease infinite !important;
+}
+
+.asset-banner-sweep {
+  animation: bannerSweep 9s ease-in-out 1s infinite !important;
+}

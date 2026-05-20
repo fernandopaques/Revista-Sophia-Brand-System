@@ -169,7 +169,7 @@ export default async function LoginPage({
             src="https://soqtksiiztlvsweotylz.supabase.co/storage/v1/object/public/brand-assets/outros/5fe15a95-bb40-4fc5-bc2c-47684039e7f8-LOGO SOPHIA WEB.webp"
             alt="Sophia"
             style={{
-              width: '280px',
+              width: '78%',
               height: 'auto',
               display: 'block',
               opacity: 0.92,

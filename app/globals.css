@@ -556,11 +556,11 @@ body {
   inset: 0;
   background: linear-gradient(
     105deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.07) 50%,
-    transparent 70%
+    transparent 25%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 75%
   );
-  animation: bannerSweep 4s ease-in-out 1s infinite;
+  animation: bannerSweep 5s ease-in-out 0.5s infinite;
   pointer-events: none;
 }
 

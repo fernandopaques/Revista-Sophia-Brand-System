@@ -12,7 +12,7 @@ export function AssetBanner({ title, subtitle, gradient }: AssetBannerProps) {
       className="asset-banner"
       style={{
         height: '180px',
-        background: gradient,
+        backgroundImage: gradient,
         padding: '40px 48px',
         display: 'flex',
         flexDirection: 'column',

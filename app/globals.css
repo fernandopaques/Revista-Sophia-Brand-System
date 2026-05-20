@@ -544,23 +544,16 @@ body {
   100% { transform: translateX(200%); }
 }
 
-.asset-banner {
-  background-size: 400% 400%;
-  animation: assetGradientShift 8s ease infinite;
-  position: relative;
-  overflow: hidden;
-}
-
 .asset-banner-sweep {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     105deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.14) 50%,
-    transparent 75%
+    transparent 20%,
+    rgba(255, 255, 255, 0.20) 50%,
+    transparent 80%
   );
-  animation: bannerSweep 5s ease-in-out 0.5s infinite;
+  animation: bannerSweep 4.5s ease-in-out 0.5s infinite;
   pointer-events: none;
 }
 
@@ -572,8 +565,7 @@ body {
     animation-iteration-count: 1 !important;
   }
 
-  .login-gradient,
-  .asset-banner {
+  .login-gradient {
     animation: none;
   }
 

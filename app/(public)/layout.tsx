@@ -5,8 +5,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       className="scroll-container"
       style={{
         height: '100dvh',
-        overflowY: 'auto',
-        scrollBehavior: 'smooth',
+        overflow: 'hidden',
         background: '#1B3A5F',
         color: '#E5DCC7',
       }}

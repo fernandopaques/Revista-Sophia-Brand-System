@@ -13,27 +13,16 @@ export function SectionCapa() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 'clamp(24px, 4vh, 56px)',
+        gap: 'clamp(20px, 3vh, 40px)',
       }}>
-        {/* Sub-label discreta acima do hero */}
-        <p style={{
-          fontFamily: 'var(--font-ui)',
-          fontSize: '12px',
-          fontWeight: 500,
-          letterSpacing: '0.32em',
-          textTransform: 'uppercase',
-          color: 'rgba(229,220,199,0.55)',
-        }}>
-          Revista — Sociedade Teosófica no Brasil
-        </p>
-
-        {/* Hero — "Sophia" em escala monumental */}
+        {/* Hero — "SOPHIA" em escala monumental, peso regular */}
         <h1 style={{
           fontFamily: 'var(--font-heading)',
-          fontWeight: 700,
-          fontSize: 'clamp(5rem, 18vw, 16rem)',
+          fontWeight: 400,
+          fontSize: 'clamp(4.5rem, 18vw, 16rem)',
           lineHeight: 0.95,
-          letterSpacing: '-0.04em',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
           color: '#DAA520',
           margin: 0,
         }}>

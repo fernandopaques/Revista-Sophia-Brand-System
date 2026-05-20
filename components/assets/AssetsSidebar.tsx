@@ -49,17 +49,6 @@ export function AssetsSidebar({ onClose }: { onClose?: () => void }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span
             style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '22px',
-              fontWeight: 700,
-              color: '#DAA520',
-              lineHeight: 1,
-            }}
-          >
-            ET
-          </span>
-          <span
-            style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '13px',
               fontWeight: 600,

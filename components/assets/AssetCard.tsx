@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Trash2 } from 'lucide-react'
 
 interface AssetCardProps {
   name: string
@@ -9,13 +10,18 @@ interface AssetCardProps {
   date?: string
   preview?: string
   icon: React.ReactNode
+  onClick?: () => void
+  onDelete?: () => void
 }
 
-export function AssetCard({ name, type, size, date, preview, icon }: AssetCardProps) {
+export function AssetCard({ name, type, size, date, preview, icon, onClick, onDelete }: AssetCardProps) {
   const [hovered, setHovered] = useState(false)
+  const [deleteHovered, setDeleteHovered] = useState(false)
+  const clickable = Boolean(onClick)
 
   return (
     <div
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -29,7 +35,7 @@ export function AssetCard({ name, type, size, date, preview, icon }: AssetCardPr
           ? '0 6px 20px rgba(27,58,95,0.12)'
           : '0 1px 4px rgba(27,58,95,0.06)',
         transition: 'transform 200ms ease, box-shadow 200ms ease',
-        cursor: 'default',
+        cursor: clickable ? 'pointer' : 'default',
       }}
     >
       {/* Dog-ear corner */}
@@ -44,14 +50,50 @@ export function AssetCard({ name, type, size, date, preview, icon }: AssetCardPr
           borderWidth: '0 24px 24px 0',
           borderColor: `transparent rgba(218,165,32,0.3) transparent transparent`,
           zIndex: 1,
+          pointerEvents: 'none',
         }}
       />
+
+      {/* Delete button — appears on hover */}
+      {onDelete && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onDelete()
+          }}
+          onMouseEnter={() => setDeleteHovered(true)}
+          onMouseLeave={() => setDeleteHovered(false)}
+          aria-label={`Excluir ${name}`}
+          style={{
+            position: 'absolute',
+            top: '8px',
+            left: '8px',
+            width: '32px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: deleteHovered ? 'rgba(185,28,28,0.95)' : 'rgba(10,15,27,0.6)',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            color: '#F8F4E6',
+            opacity: hovered ? 1 : 0,
+            transition: 'opacity 150ms ease, background 150ms ease',
+            zIndex: 2,
+          }}
+        >
+          <Trash2 size={16} />
+        </button>
+      )}
 
       {/* Preview area */}
       <div
         style={{
           height: '140px',
-          background: 'rgba(27,58,95,0.05)',
+          background: preview
+            ? 'repeating-conic-gradient(rgba(27,58,95,0.04) 0% 25%, transparent 0% 50%) 50% / 16px 16px'
+            : 'rgba(27,58,95,0.05)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -64,9 +106,9 @@ export function AssetCard({ name, type, size, date, preview, icon }: AssetCardPr
             src={preview}
             alt={name}
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              maxWidth: '100%',
+              maxHeight: '100%',
+              objectFit: 'contain',
               display: 'block',
             }}
           />

@@ -13,20 +13,19 @@ export function SectionManifesto() {
           letterSpacing: '0.32em',
           textTransform: 'uppercase',
           color: '#DAA520',
-          marginBottom: 'clamp(20px, 3vw, 32px)',
+          marginBottom: 'clamp(14px, 2vw, 22px)',
         }}>
           02 — Manifesto
         </p>
 
-        {/* Frase de soco — escala dramática, centralizada como na Cayena */}
-        <h2 style={{
+        <h2 className="manifesto-h2" style={{
           fontFamily: 'var(--font-heading)',
-          fontSize: 'clamp(2.25rem, 6.5vw, 5rem)',
+          fontSize: 'clamp(1.375rem, 3.8vw, 3rem)',
           fontWeight: 600,
-          lineHeight: 1.05,
-          letterSpacing: '-0.025em',
+          lineHeight: 1.15,
+          letterSpacing: '-0.02em',
           color: '#E5DCC7',
-          marginBottom: 'clamp(40px, 6vw, 80px)',
+          marginBottom: 'clamp(24px, 3vw, 44px)',
         }}>
           O mundo banalizou o sagrado.<br />
           <span style={{ color: '#DAA520' }}>A Sophia recusa esse mercado.</span>
@@ -34,6 +33,7 @@ export function SectionManifesto() {
 
         {/* Manifesto em duas colunas no desktop, 1 no mobile — texto à esquerda */}
         <div
+          className="manifesto-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',

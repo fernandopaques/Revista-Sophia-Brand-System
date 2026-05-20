@@ -25,9 +25,8 @@ export interface NavExternal {
 // ── Itens standalone (topo, sem grupo) ───────────────────────────────────────
 export const STANDALONE_ITEMS: NavStandalone[] = [
   { title: 'Brand System',        href: '/dashboard',                slug: 'home' },
-  { title: 'Identidade da Marca', href: '/brand/identidade-visual',  slug: 'identidade-visual' },
+  { title: 'Brand Book',          href: '/',                         slug: 'public' },
   { title: 'Gestão de Ativos',    href: '/assets',                   slug: 'assets' },
-  { title: 'Brand Book Público',  href: '/',                         slug: 'public' },
 ]
 
 // ── Ondas / grupos colapsáveis ────────────────────────────────────────────────
@@ -81,9 +80,7 @@ export const NAVIGATION: Wave[] = [
 ]
 
 // ── Links externos (rodapé nav) ───────────────────────────────────────────────
-export const EXTERNAL_ITEMS: NavExternal[] = [
-  { title: 'Sociedade Teosófica',  href: 'https://sociedadeteosofica.org.br' },
-]
+export const EXTERNAL_ITEMS: NavExternal[] = []
 
 // ── Utilitários ───────────────────────────────────────────────────────────────
 export function getAllSlugs(): string[] {

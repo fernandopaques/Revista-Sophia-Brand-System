@@ -42,7 +42,7 @@ export function SectionOQueNosMove() {
         </p>
 
         {/* Título centralizado */}
-        <h2 style={{
+        <h2 className="values-grid-title" style={{
           fontFamily: 'var(--font-heading)',
           fontSize: 'clamp(2rem, 5vw, 3.75rem)',
           fontWeight: 600,
@@ -58,6 +58,7 @@ export function SectionOQueNosMove() {
 
         {/* Grid 2×2 de valores — texto dos cards à esquerda */}
         <div
+          className="values-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
@@ -68,6 +69,7 @@ export function SectionOQueNosMove() {
           {VALUES.map(v => (
             <article
               key={v.num}
+              className="values-card"
               style={{
                 background: '#FAF5E6',
                 border: '1px solid rgba(112,66,20,0.16)',

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { X } from 'lucide-react'
 import { SidebarNav } from './SidebarNav'
 import { SidebarFooter } from './SidebarFooter'
@@ -23,18 +22,14 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
           alignItems: 'center',
         }}
       >
-        <Link
-          href="/dashboard"
-          className="sidebar-logo-btn"
+        <div
           style={{
-            textDecoration: 'none',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             flex: 1,
             padding: '24px 20px',
           }}
-          title="Voltar à página inicial"
         >
           <p style={{
             fontFamily: 'var(--font-heading)',
@@ -42,7 +37,8 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
             fontSize: '26px',
             fontWeight: 700,
             lineHeight: 1.1,
-            letterSpacing: '-0.01em',
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
           }}>
             Sophia
           </p>
@@ -57,7 +53,7 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
           }}>
             Sistema de Marca
           </p>
-        </Link>
+        </div>
 
         {/* Close button — mobile only */}
         {onClose && (

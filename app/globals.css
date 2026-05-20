@@ -239,7 +239,7 @@ body {
 .et-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
 @media (max-width: 600px) {
@@ -318,15 +318,41 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 64px);
+  /* Mobile: top menor (só limpa o hamburger), bottom maior (limpa os botões de nav) */
+  padding-top: clamp(72px, 10vh, 120px);
+  padding-bottom: clamp(100px, 13vh, 140px);
+  padding-left: clamp(20px, 6vw, 64px);
+  padding-right: clamp(20px, 6vw, 64px);
   position: relative;
+  box-sizing: border-box;
 }
 
 @media (min-width: 1024px) {
   .public-section {
-    padding-left: 240px;
-    padding-right: 240px;
+    padding-top: clamp(80px, 12vh, 160px);
+    padding-bottom: clamp(80px, 12vh, 160px);
+    /* 240px limpa a sidebar fixa + 80px de respiro interno;
+       padding-right = mesmo respiro interno (80px) para que o
+       conteúdo fique centrado na área útil (viewport − sidebar) */
+    padding-left: 320px;
+    padding-right: 80px;
   }
+}
+
+/* Ajustes mobile específicos por seção */
+@media (max-width: 1023px) {
+  /* Manifesto: h2 e grid com gaps reduzidos pra caber na tela */
+  .manifesto-h2 { margin-bottom: 18px !important; }
+  .manifesto-grid { gap: 14px !important; }
+
+  /* O que nos move: 2×2 ao invés de 4 empilhados */
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .values-grid-title { margin-bottom: 18px !important; }
+  .values-card { padding: 14px !important; gap: 10px !important; }
+  .values-card p { font-size: 0.875rem !important; line-height: 1.55 !important; }
 }
 
 .public-section-inner,
@@ -349,14 +375,161 @@ body {
 /* Alinha o breakpoint da sidebar/hamburger com o do padding (1024px)
    pra evitar zona morta no tablet onde sidebar aparece mas o conteúdo
    não cleared o espaço dela. */
-.public-shell-sidebar  { display: none; }
+.public-shell-sidebar   { display: none; }
 .public-shell-hamburger { display: flex; }
 .public-shell-menu      { display: flex; }
 
 @media (min-width: 1024px) {
-  .public-shell-sidebar  { display: flex; }
+  .public-shell-sidebar   { display: flex; }
   .public-shell-hamburger { display: none; }
   .public-shell-menu      { display: none !important; }
+}
+
+/* ===== DASHBOARD — LAYOUT ===== */
+.dashboard-page {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.dashboard-wrap {
+  padding: 28px 18px 48px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .dashboard-page {
+    overflow: hidden;
+  }
+
+  .dashboard-wrap {
+    height: 100%;
+    padding: 32px 56px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    box-sizing: border-box;
+  }
+
+  .dashboard-cards-grid {
+    gap: 10px !important;
+  }
+
+  .dashboard-card {
+    padding: 13px 18px !important;
+  }
+
+  .dashboard-card-icon {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+  }
+
+  .dashboard-card-title {
+    font-size: 14px !important;
+  }
+
+  .dashboard-card-desc {
+    font-size: 11px !important;
+  }
+}
+
+/* ===== PROMPT AREA — PLACEHOLDER DARK ===== */
+.prompt-dark-input::placeholder {
+  color: rgba(229,220,199,0.38);
+}
+
+/* ===== PAGE NAV — MÓDULOS BRAND ===== */
+.page-nav-mt {
+  margin-top: 64px;
+}
+
+.page-nav-divider {
+  height: 1px;
+  background: rgba(218,165,32,0.2);
+  margin-bottom: 28px;
+}
+
+.page-nav-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 48px;
+}
+
+.page-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #1B3A5F;
+  border: 1px solid rgba(218,165,32,0.2);
+  border-radius: 999px;
+  color: #E5DCC7;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+  max-width: 240px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.page-nav-pill:hover {
+  background: #254d7a;
+  border-color: rgba(218,165,32,0.5);
+  color: #DAA520;
+}
+
+.page-nav-pill span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Mobile: empilha os botões em coluna, cada um ocupa a largura toda */
+@media (max-width: 600px) {
+  .page-nav-mt {
+    margin-top: 36px;
+  }
+
+  .page-nav-divider {
+    margin-bottom: 20px;
+  }
+
+  .page-nav-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding-bottom: 36px;
+  }
+
+  /* Spacer vazio some no mobile (só serve para o space-between desktop) */
+  .page-nav-spacer {
+    display: none;
+  }
+
+  .page-nav-pill {
+    max-width: 100%;
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 13px;
+    border-radius: 12px;
+  }
+
+  /* Botão "next" alinha conteúdo à direita no mobile */
+  .page-nav-pill--next {
+    justify-content: flex-end;
+  }
 }
 
 /* ===== REDUCED MOTION — ACESSIBILIDADE ===== */

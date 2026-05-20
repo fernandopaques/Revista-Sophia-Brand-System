@@ -46,14 +46,14 @@ function AssistantBubble({ content, streaming }: { content: string; streaming?: 
           <Sparkles size={14} color="#DAA520" />
         </div>
         <div style={{
-          background: '#F5F1E8',
-          border: '1px solid rgba(218,165,32,0.15)',
+          background: 'rgba(218,165,32,0.10)',
+          border: '1px solid rgba(218,165,32,0.25)',
           borderRadius: '4px 14px 14px 14px',
           padding: '10px 14px',
           fontFamily: 'var(--font-ui)',
           fontSize: '14px',
           lineHeight: 1.7,
-          color: '#0A0F1B',
+          color: '#E5DCC7',
           whiteSpace: 'pre-wrap',
         }}>
           {content || <span style={{ opacity: 0.4 }}>…</span>}
@@ -189,18 +189,19 @@ export function PromptArea() {
   return (
     <div style={{
       width: '100%',
-      background: '#F0EBE0',
-      border: '1.5px solid rgba(218,165,32,0.2)',
-      borderRadius: '12px',
+      background: 'rgba(255,255,255,0.06)',
+      border: '1.5px solid rgba(218,165,32,0.30)',
+      borderRadius: '14px',
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
+      backdropFilter: 'blur(8px)',
     }}>
       {/* Cabeçalho — visível apenas quando há mensagens */}
       {hasMessages && (
         <div style={{
           padding: '10px 16px',
-          borderBottom: '1px solid rgba(218,165,32,0.12)',
+          borderBottom: '1px solid rgba(218,165,32,0.15)',
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
@@ -212,9 +213,9 @@ export function PromptArea() {
             fontWeight: 600,
             letterSpacing: '0.06em',
             textTransform: 'uppercase',
-            color: 'rgba(10,15,27,0.4)',
+            color: 'rgba(229,220,199,0.55)',
           }}>
-            Assistente de Marca
+            Sophia · Assistente de Marca
           </span>
         </div>
       )}
@@ -245,8 +246,8 @@ export function PromptArea() {
       {/* Input */}
       <div style={{
         position: 'relative',
-        padding: '12px 56px 12px 16px',
-        borderTop: hasMessages ? '1px solid rgba(218,165,32,0.12)' : 'none',
+        padding: '14px 60px 14px 18px',
+        borderTop: hasMessages ? '1px solid rgba(218,165,32,0.15)' : 'none',
         display: 'flex',
         alignItems: 'flex-end',
       }}>
@@ -255,7 +256,8 @@ export function PromptArea() {
           value={input}
           onChange={e => { setInput(e.target.value); handleInput() }}
           onKeyDown={handleKeyDown}
-          placeholder={hasMessages ? 'Continue a conversa…' : 'Pergunte sobre as diretrizes da marca…'}
+          placeholder={hasMessages ? 'Continue a conversa…' : 'Pergunte à SOPHIA…'}
+          className="prompt-dark-input"
           rows={2}
           disabled={loading}
           style={{
@@ -266,9 +268,9 @@ export function PromptArea() {
             resize: 'none',
             fontFamily: 'var(--font-ui)',
             fontSize: '15px',
-            color: '#0A0F1B',
+            color: '#E5DCC7',
             lineHeight: 1.6,
-            minHeight: '48px',
+            minHeight: '52px',
             maxHeight: '160px',
             overflowY: 'auto',
             scrollbarWidth: 'none',
